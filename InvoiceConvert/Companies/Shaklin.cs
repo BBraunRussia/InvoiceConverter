@@ -18,8 +18,8 @@ namespace Converter
             while (_docXML.Invoice[0] == '0')
                 _docXML.Invoice = _docXML.Invoice.Remove(0, 1);
 
-            _newFileName = WorkWithString.createString(_docXML.custNumber, "_", _docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
-            _newFilePath = WorkWithString.createString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
+            _newFileName = WorkWithString.CreateString(_docXML.custNumber, "_", _docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
+            _newFilePath = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
         }
 
         public override void CreateAndSaveFile()
@@ -29,11 +29,11 @@ namespace Converter
 
             try
             {
-                sw.WriteLine(WorkWithString.createString(_docXML.custNumber, "\t", _docXML.Curcy, "\t", _docXML.Invoice, "\t", _docXML.Summe));
+                sw.WriteLine(WorkWithString.CreateString(_docXML.custNumber, "\t", _docXML.Curcy, "\t", _docXML.Invoice, "\t", _docXML.Summe));
 
                 for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
                 {
-                    sw.WriteLine(WorkWithString.createString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.tdLine.GetItem(k, 120), "\t", _docXML.menge.GetItem(k),
+                    sw.WriteLine(WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.tdLine.GetItem(k, 120), "\t", _docXML.menge.GetItem(k),
                         "\t", _docXML.priceNoVat.GetItem(k), "\t", _docXML.vatrate.GetItem(k), "\t", _docXML.mengVat.GetItem(k), "\t", _docXML.gtdNo.GetItem(k),
                         "\t", _docXML.gtdHerkl.GetItem(k), "\t", _docXML.labelBatch.GetItem(k), "\t", _docXML.actManPrRub.GetItem(k), "\t",
                         _docXML.vfDat.GetItem(k), "\t", _docXML.name1.GetItem(k), "\t", _docXML.countInPackage.GetItem(k), "\t", _docXML.menee.GetItem(k)));

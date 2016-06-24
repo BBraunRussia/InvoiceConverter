@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnteyFarma.cs" />
-    <Compile Include="ConvFile.cs" />
+    <Compile Include="Companies\AnteyFarma.cs" />
+    <Compile Include="abstract\ConvFile.cs" />
     <Compile Include="DocXML.cs" />
     <Compile Include="enums.cs" />
-    <Compile Include="GbuzOKB.cs" />
+    <Compile Include="Companies\GbuzOKB.cs" />
     <Compile Include="MyFile.cs" />
     <Compile Include="ItemList.cs" />
     <Compile Include="Logger.cs" />
@@ -57,10 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sender.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SeveroZapad.cs" />
-    <Compile Include="Shaklin.cs" />
-    <Compile Include="UralApteka.cs" />
-    <Compile Include="Voltars.cs" />
+    <Compile Include="Companies\SeveroZapad.cs" />
+    <Compile Include="Companies\Shaklin.cs" />
+    <Compile Include="Companies\UralApteka.cs" />
+    <Compile Include="Companies\Voltars.cs" />
     <Compile Include="WorkWithString.cs" />
   </ItemGroup>
   <ItemGroup>

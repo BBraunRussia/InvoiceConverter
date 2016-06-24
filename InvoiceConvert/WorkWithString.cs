@@ -12,7 +12,7 @@ namespace Converter
             return str.Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;").Replace("\"", "&quot;");
         }
 
-        public static string createString(params string[] Params)
+        public static string CreateString(params string[] Params)
         {
             StringBuilder sb = new StringBuilder();
 

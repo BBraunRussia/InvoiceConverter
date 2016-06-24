@@ -13,8 +13,8 @@ namespace Converter
 
         protected override void CreateFileName()
         {
-            _newFileName = WorkWithString.createString(_docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
-            _newFilePath = WorkWithString.createString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
+            _newFileName = WorkWithString.CreateString(_docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
+            _newFilePath = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
         }
 
         public override void CreateAndSaveFile()
@@ -24,11 +24,11 @@ namespace Converter
 
             try
             {
-                sw.WriteLine(WorkWithString.createString("Антей - Фарма\t", _docXML.Invoice, "\t", _docXML.InvoiceDate));
+                sw.WriteLine(WorkWithString.CreateString("Антей - Фарма\t", _docXML.Invoice, "\t", _docXML.InvoiceDate));
 
                 for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
                 {
-                    string str = WorkWithString.createString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.kText.GetItem(k), "\t", _docXML.mfName1.GetItem(k),
+                    string str = WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.kText.GetItem(k), "\t", _docXML.mfName1.GetItem(k),
                         "\t", _docXML.menge.GetItem(k), "\t", _docXML.priceNoVat.GetItem(k), "\t", _docXML.vatrate.GetItem(k), "\t",
                         _docXML.gtdNo.GetItem(k), "\t", _docXML.labelBatch.GetItem(k), "\t", _docXML.vfDat.GetItem(k), "\t",
                         _docXML.ruRegCertificate.GetItem(k), "\t", _docXML.ruIssueDateCertifacate.GetItem(k), "\t",

@@ -28,7 +28,7 @@ namespace Converter
 
             try
             {
-                sw.WriteLine(WorkWithString.createString(_docXML.custNumber + "\t" + _docXML.Invoice + "\t" + _docXML.InvoiceDate + "\t" +
+                sw.WriteLine(WorkWithString.CreateString(_docXML.custNumber + "\t" + _docXML.Invoice + "\t" + _docXML.InvoiceDate + "\t" +
                     _docXML.Invoice + "\t" + _docXML.InvoiceDate));
 
                 for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
@@ -37,7 +37,7 @@ namespace Converter
                     if (tdline.Length > 120)
                         tdline = tdline.Substring(0, 120);
 
-                    sw.WriteLine(WorkWithString.createString(_docXML.idTnrProductCode.GetItem(k) + "\t" + _docXML.tdLine.GetItem(k) + "\t" + _docXML.menge.GetItem(k) +
+                    sw.WriteLine(WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k) + "\t" + _docXML.tdLine.GetItem(k) + "\t" + _docXML.menge.GetItem(k) +
                         "\t" + _docXML.priceNoVat.GetItem(k) + "\t" + _docXML.vatrate.GetItem(k) + "\t" + _docXML.mengVat.GetItem(k) + "\t" +
                         _docXML.gtdNo.GetItem(k) + "\t" + _docXML.gtdHerkl.GetItem(k) + "\t" + _docXML.labelBatch.GetItem(k) + "\t" +
                         _docXML.actManPrRub.GetItem(k) + "\t" + _docXML.vfDat.GetItem(k) + "\t" + _docXML.name1.GetItem(k) + "\t" +

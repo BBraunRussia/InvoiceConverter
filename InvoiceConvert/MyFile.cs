@@ -64,12 +64,12 @@ namespace Converter
 
         private string CreateFilePathWithCustNumber(string folder, string file)
         {
-            return CreateFilePath(WorkWithString.createString(folder, @"\", _custNumberSAP), file);
+            return CreateFilePath(WorkWithString.CreateString(folder, @"\", _custNumberSAP), file);
         }
 
         private static string CreateFilePath(string folder, string file)
         {
-            return WorkWithString.createString(folder, @"\", file);
+            return WorkWithString.CreateString(folder, @"\", file);
         }
 
         private static void DeleteIfExistFile(string newFilePath)

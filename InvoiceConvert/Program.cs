@@ -44,7 +44,7 @@ namespace Converter
                 
                 bool move = true;
 
-                string newFileName = WorkWithString.createString(docXML.Invoice, "_", docXML.InvoiceDate);
+                string newFileName = WorkWithString.CreateString(docXML.Invoice, "_", docXML.InvoiceDate);
 
                 switch (docXML.Customer)
                 {
@@ -69,7 +69,7 @@ namespace Converter
                         }
                     case Cust.Protek: //Protek
                         {
-                            newFileName = WorkWithString.createString(docXML.Invoice);
+                            newFileName = WorkWithString.CreateString(docXML.Invoice);
                             myFile.Copy(fileName, newFileName);
                             break;
                         }

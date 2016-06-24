@@ -85,7 +85,7 @@ namespace Converter
 
         public string InvoiceDate
         {
-            get { return WorkWithString.createString(_dateInvoice.Substring(6, 2), ".", _dateInvoice.Substring(4, 2), ".", _dateInvoice.Substring(0, 4)); }
+            get { return WorkWithString.CreateString(_dateInvoice.Substring(6, 2), ".", _dateInvoice.Substring(4, 2), ".", _dateInvoice.Substring(0, 4)); }
             set { _dateInvoice = value; }
         }
 
@@ -328,7 +328,7 @@ namespace Converter
 
         private void createFolder()
         {
-            string filePath = WorkWithString.createString(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
+            string filePath = WorkWithString.CreateString(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
             MyFile.CreateFolder(filePath);
         }
 

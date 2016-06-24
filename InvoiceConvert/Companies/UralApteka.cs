@@ -13,8 +13,8 @@ namespace Converter
 
         protected override void CreateFileName()
         {
-            _newFileName = WorkWithString.createString(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
-            _newFilePath = WorkWithString.createString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
+            _newFileName = WorkWithString.CreateString(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
+            _newFilePath = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
         }
 
         public override void CreateAndSaveFile()
