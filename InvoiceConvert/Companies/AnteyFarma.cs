@@ -8,6 +8,8 @@ namespace Converter
 {
     public class AnteyFarma : ConvFile
     {
+        const string COMPANY_NAME = "AnteyFarma";
+
         public AnteyFarma(string sourceFile, DocXML docXML) :
             base(sourceFile, docXML) { }
 
@@ -19,36 +21,32 @@ namespace Converter
 
         public override void CreateAndSaveFile()
         {
-            Encoding ANSI = Encoding.GetEncoding(1251);
-            StreamWriter sw = new StreamWriter(_newFilePath, false, ANSI);
-
             try
             {
-                sw.WriteLine(WorkWithString.CreateString("Антей - Фарма\t", _docXML.Invoice, "\t", _docXML.InvoiceDate));
-
-                for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
+                using (StreamWriter sw = new StreamWriter(_newFilePath, false, ANSI))
                 {
-                    string str = WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.kText.GetItem(k), "\t", _docXML.mfName1.GetItem(k),
-                        "\t", _docXML.menge.GetItem(k), "\t", _docXML.priceNoVat.GetItem(k), "\t", _docXML.vatrate.GetItem(k), "\t",
-                        _docXML.gtdNo.GetItem(k), "\t", _docXML.labelBatch.GetItem(k), "\t", _docXML.vfDat.GetItem(k), "\t",
-                        _docXML.ruRegCertificate.GetItem(k), "\t", _docXML.ruIssueDateCertifacate.GetItem(k), "\t",
-                        _docXML.ruValidToDateCertificate.GetItem(k), "\t", _docXML.actManPrRub.GetItem(k));
+                    sw.WriteLine(WorkWithString.CreateString("Антей - Фарма\t", _docXML.Invoice, "\t", _docXML.InvoiceDate));
 
-                    sw.WriteLine(str);
+                    for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
+                    {
+                        string str = WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k), "\t", _docXML.kText.GetItem(k), "\t", _docXML.mfName1.GetItem(k),
+                            "\t", _docXML.menge.GetItem(k), "\t", _docXML.priceNoVat.GetItem(k), "\t", _docXML.vatrate.GetItem(k), "\t",
+                            _docXML.gtdNo.GetItem(k), "\t", _docXML.labelBatch.GetItem(k), "\t", _docXML.vfDat.GetItem(k), "\t",
+                            _docXML.ruRegCertificate.GetItem(k), "\t", _docXML.ruIssueDateCertifacate.GetItem(k), "\t",
+                            _docXML.ruValidToDateCertificate.GetItem(k), "\t", _docXML.actManPrRub.GetItem(k));
+
+                        sw.WriteLine(str);
+                    }
+
+                    Logger.FileProcessed(_fileName, _newFilePath);
+                    MoveFile(Settings.folderXML);
                 }
-
-                Logger.FileProcessed(_fileName, _newFilePath);
-                MoveFile(Settings.folderXML);
             }
             catch (Exception err)
             {
-                Logger.ErrorCreated("Shaklin", err.Message);
+                Logger.ErrorCreated(COMPANY_NAME, err.Message);
                 File.Delete(_newFilePath);
                 MoveFile(Settings.folderXMLError);
-            }
-            finally
-            {
-                sw.Close();
             }
         }
     }

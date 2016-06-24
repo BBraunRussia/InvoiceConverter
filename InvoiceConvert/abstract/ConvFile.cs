@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,8 @@ namespace Converter
 {
     public abstract class ConvFile
     {
+        protected static Encoding ANSI = Encoding.GetEncoding(1251);
+
         protected DocXML _docXML;
         protected string _newFilePath;
         protected string _fileName;

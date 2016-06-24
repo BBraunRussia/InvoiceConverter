@@ -48,91 +48,68 @@ namespace Converter
 
                 switch (docXML.Customer)
                 {
-                    case Cust.Katren: //katren
-                        {
+                    case Cust.Katren:
                             myFile.Copy(fileName, newFileName);
-
                             break;
-                        }
-                    case Cust.Shaklin: //Shaklin
-                        {
+                    case Cust.Shaklin:
                             Shaklin shaklin = new Shaklin(fileName, docXML);
                             shaklin.CreateAndSaveFile();
                             move = false;
                             break;
-                        }
-                    case Cust.AptekaSkal: //Aptechnii sklad
-                        {
+                    case Cust.AptekaSkal:
                             GbuzOKB fileDbf = new GbuzOKB(fileName, docXML);
                             fileDbf.CreateFiles();
                             break;
-                        }
-                    case Cust.Protek: //Protek
-                        {
+                    case Cust.Protek:
                             newFileName = WorkWithString.CreateString(docXML.Invoice);
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
-                    case Cust.EuropeanMedicalCenter: //Юропиан Медикал Сентер
-                        {
+                    case Cust.EuropeanMedicalCenter:
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
-                    case Cust.Optimed: //Оптимед
-                        {
+                    case Cust.Optimed:
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
-                    case Cust.Voltars: //Волтарс
-                        {
+                    case Cust.Voltars:
                             Voltars voltars = new Voltars(fileName, docXML);
                             voltars.CreateAndSaveFile();
                             move = false;
                             break;
-                        }
-                    case Cust.Optimed2: //Оптимед2
-                        {
+                    case Cust.Optimed2:
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
-                    case Cust.UralApteka: //УралАптека
-                        {
+                    case Cust.UralApteka:
                             UralApteka uralApteka = new UralApteka(fileName, docXML);
                             uralApteka.CreateAndSaveFile();
                             move = false;
                             break;
-                        }
                     case Cust.AnteyFarma:
-                        {
                             AnteyFarma anteyFarma = new AnteyFarma(fileName, docXML);
                             anteyFarma.CreateAndSaveFile();
                             move = false;
                             break;
-                        }
-                    case Cust.GBUZ: //GBUZ TO "OKB No.2"
-                        {
+                    case Cust.GBUZ:
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
                     case Cust.SeveroZapad:
-                        {
                             SeveroZapad severoZapad = new SeveroZapad(fileName, docXML);
                             severoZapad.CreateAndSaveFile();
                             move = false;
                             break;
-                        }
                     default:
-                        {
                             myFile.Copy(fileName, newFileName);
                             break;
-                        }
                 }
                 if (move)
+                {
                     myFile.MoveFile(Settings.folderXML, fileName);
+                }
             }
 
             if (filePaths.Count() > 0)
+            {
                 Logger.EndWork();
+            }
         }
     }
 }

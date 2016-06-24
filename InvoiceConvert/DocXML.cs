@@ -22,16 +22,8 @@ namespace Converter
                                  "НБР", "ННМ", "ПА", "ПАЛ", "ПАР", "ПВП", "ПОД", "РУЛ", "С", "С3С", "СМ", "ТЛ",
                                  "УП", "УП.", "УПК", "ФТ2", "ШТ", "ЭДМ" };
 
-        private Cust _customer;
-        private string _custNumberSAP;
-        private string _curcy;        
-        private string _summe;
         private string _file;
-
-        private string _invoice;
         private string _dateInvoice;
-
-        private string _torg12;
         private string _dateTorg12;
 
         public ItemList idTnrProductCode; //код товара(внутренний) E1EDP19 - QUALF = 002
@@ -58,10 +50,8 @@ namespace Converter
         public ItemList ruValidToDateCertificate;
         public ItemList totalVat;
         public ItemList hsDat;
-        
-        public string custNumber;
-        
-        public string comp;
+
+        public string Comp { get; set; }
         public string post; //поставщик E1EDKA1-PARVW = BK
         public string pokup; //покупатель E1EDKA1-PARVW = AG
         public string countPos; //кол-во позиций E1EDS01-SUMID = 001
@@ -77,11 +67,8 @@ namespace Converter
         public string bank; //банк E1EDK28-BCOUN = RU
         public string otdel; //ОтделениеБанка E1EDK28-BCOUN = RU
 
-        public string Invoice
-        {
-            get { return _invoice; }
-            set { _invoice = value; }
-        }
+        public string Invoice { get; set; }
+        public string CustNumber { get; set; }
 
         public string InvoiceDate
         {
@@ -89,22 +76,13 @@ namespace Converter
             set { _dateInvoice = value; }
         }
 
-        public string CustNumberSAP { get { return _custNumberSAP; } }
-        public Cust Customer { get { return _customer; } }
-        public string Curcy { get { return _curcy; } }
-        public string Torg12 { get { return _torg12; } }
-        public string Summe { get { return _summe; } }
-        
-        public int Contr
-        {
-            get
-            {
-                if ((comp == "299") || ((comp == "0299")))
-                    return 150;
-                else
-                    return 7448;
-            }
-        }
+        public string CustNumberSAP { get; private set; }
+        public Cust Customer { get; private set; }
+        public string Curcy { get; private set; }
+        public string Torg12 { get; private set; }
+        public string Summe { get; private set; }
+
+        public int Contr { get { return ((Comp == "299") || ((Comp == "0299"))) ? 150 : 7448; } } // выбор компании Гематек или ББраун
 
         public DocXML(string file)
         {
@@ -146,18 +124,18 @@ namespace Converter
             ds.ReadXmlSchema(Settings.xmlSchema);
             ds.ReadXml(_file, XmlReadMode.ReadSchema);
 
-            _curcy = ds.Tables[2].Rows[0].ItemArray[3].ToString();            
-            _summe = ds.Tables[29].Rows[0].ItemArray[2].ToString();
+            Curcy = ds.Tables[2].Rows[0].ItemArray[3].ToString();            
+            Summe = ds.Tables[29].Rows[0].ItemArray[2].ToString();
 
-            setCustNumberSAP(ds.Tables[1].Rows[0].ItemArray[27].ToString());
+            SetCustNumberSAP(ds.Tables[1].Rows[0].ItemArray[27].ToString());
 
-            _invoice = ds.Tables[4].Rows[0].ItemArray[2].ToString(); //номер счёт-фактуры E1EDK02-QUALF = 009
+            Invoice = ds.Tables[4].Rows[0].ItemArray[2].ToString(); //номер счёт-фактуры E1EDK02-QUALF = 009
             InvoiceDate = ds.Tables[4].Rows[0].ItemArray[4].ToString(); //дата счёт-фактуры E1EDK02-QUALF = 009
 
-            _torg12 = ds.Tables[4].Rows[2].ItemArray[2].ToString(); //номер накладной E1EDK02-QUALF = 012
+            Torg12 = ds.Tables[4].Rows[2].ItemArray[2].ToString(); //номер накладной E1EDK02-QUALF = 012
             _dateTorg12 = ds.Tables[4].Rows[2].ItemArray[4].ToString(); //дата накладной E1EDK02-QUALF = 012
             
-            comp = ds.Tables[3].Rows[4].ItemArray[3].ToString(); //Код поставщика
+            Comp = ds.Tables[3].Rows[4].ItemArray[3].ToString(); //Код поставщика
             post = ds.Tables[3].Rows[4].ItemArray[4].ToString(); //поставщик E1EDKA1-PARVW = BK
             pokup = ds.Tables[3].Rows[1].ItemArray[4].ToString(); //покупатель E1EDKA1-PARVW = AG
             countPos = ds.Tables[29].Rows[0].ItemArray[1].ToString(); //кол-во позиций E1EDS01-SUMID = 001
@@ -325,27 +303,32 @@ namespace Converter
             foreach (XmlNode node in nodes)
                 hsDat.Add(node.InnerText.Trim());
         }
+        
+        public void SetCustNumberSAP(string value)
+        {
+            CustNumberSAP = value;
+
+            if (Settings.Customers.ContainsKey(value))
+            {
+                Customer = Settings.Customers[value];
+            }
+            /*
+            foreach (KeyValuePair<Cust, string> customer in Settings.Customers)
+            {
+                if (value == customer.Value)
+                {
+                    Customer = customer.Key;
+                    break;
+                }
+            }
+            */
+            createFolder();
+        }
 
         private void createFolder()
         {
             string filePath = WorkWithString.CreateString(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
             MyFile.CreateFolder(filePath);
-        }
-
-        public void setCustNumberSAP(string value)
-        {
-            _custNumberSAP = value;
-
-            foreach (KeyValuePair<Cust, string> customer in Settings.Customers)
-            {
-                if (value == customer.Value)
-                {
-                    this._customer = customer.Key;
-                    break;
-                }
-            }
-
-            createFolder();
         }
     }
 }

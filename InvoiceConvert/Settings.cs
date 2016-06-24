@@ -8,86 +8,65 @@ namespace Converter
 {
     public static class Settings
     {
-        public static string folderNew;// = @"P:\SAP\EDI\DEA\EDI_NEW";
-        public static string folderXML;// = @"P:\SAP\EDI\DEA\EDI_XML";
-        public static string folderConv;// = @"P:\SAP\EDI\DEA\EDI_CONVERTED";
-        public static string folderXMLError;
-        public static string xmlSchema;// = @"J:\Information Technology\Development\XMLtoTXT\INVOIC02_XMLSchema.xsd";
-        public static Dictionary<Cust, string> Customers;        
+        private const string SETTINGS_FILENAME = @"settings.ini";
+        private static readonly char[] SEPARATOR = new char[] { '=' };
+
+        public static readonly string folderNew;// = @"P:\SAP\EDI\DEA\EDI_NEW";
+        public static readonly string folderXML;// = @"P:\SAP\EDI\DEA\EDI_XML";
+        public static readonly string folderConv;// = @"P:\SAP\EDI\DEA\EDI_CONVERTED";
+        public static readonly string folderXMLError;
+        public static readonly string xmlSchema;// = @"J:\Information Technology\Development\XMLtoTXT\INVOIC02_XMLSchema.xsd";
+        public static readonly Dictionary<string, Cust> Customers;        
 
         static Settings()
         {
-            string line;
-            string[] strArr;
-            char[] charArr = new char[] { '=' };
-            Customers = new Dictionary<Cust, string>();
+            Customers = new Dictionary<string, Cust>();
 
-            FileStream fs = new FileStream("settings.ini", FileMode.Open);
-            StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            string[] strArr = File.ReadAllLines(SETTINGS_FILENAME);
 
-            try
+            foreach (var line in strArr)
             {
-                while (sr.EndOfStream != true)
+                string[] spliredLine = line.Split(SEPARATOR);
+                switch (spliredLine[0].Trim())
                 {
-                    line = sr.ReadLine();
-                    strArr = line.Split(charArr);
-                    switch (strArr[0].Trim())
-                    {
-                        case "folderNew":
-                            {
-                                folderNew = strArr[1].Trim();
-                                break;
-                            }
-                        case "folderXML":
-                            {
-                                folderXML = strArr[1].Trim();
-                                break;
-                            }
-                        case "folderConv":
-                            {
-                                folderConv = strArr[1].Trim();
-                                break;
-                            }
-                        case "folderXMLError":
-                            {
-                                folderXMLError = strArr[1].Trim();
-                                break;
-                            }
-                        case "xmlSchema":
-                            {
-                                xmlSchema = strArr[1].Trim();
-                                break;
-                            }
-                        case "emails":
-                            {
-                                Sender.AddEmails(strArr[1]);
-                                break;
-                            }
-                        case "#":
-                            {
-                                while (sr.EndOfStream != true)
-                                {
-                                    line = sr.ReadLine();
-                                    strArr = line.Split(charArr);
-
-                                    Cust custNumber = (Cust)Convert.ToInt32(strArr[0].Trim());
-
-                                    Customers.Add(custNumber, strArr[1].Split('\t')[0].Trim());
-                                }
-
-                                break;
-                            }
-                    }
+                    case "folderNew":
+                        folderNew = spliredLine[1].Trim();
+                        break;
+                    case "folderXML":
+                        folderXML = spliredLine[1].Trim();
+                        break;
+                    case "folderConv":
+                        folderConv = spliredLine[1].Trim();
+                        break;
+                    case "folderXMLError":
+                        folderXMLError = spliredLine[1].Trim();
+                        break;
+                    case "xmlSchema":
+                        xmlSchema = spliredLine[1].Trim();
+                        break;
+                    case "emails":
+                        Sender.AddEmails(spliredLine[1]);
+                        break;
+                    default:
+                        ReadCustomers(line);
+                        break;
                 }
             }
-            catch (Exception err)
+        }
+
+        private static void ReadCustomers(string line)
+        {
+            int id;
+            if ((line.Count() > 0) && (int.TryParse(line[0].ToString(), out id)))
             {
-                Logger.ErrorCreated("Файл настроек", err.Message);
-            }
-            finally
-            {
-                sr.Close();
-                fs.Close();
+                string[] splitedLine = line.Split(SEPARATOR);
+
+                int.TryParse(splitedLine[0].Trim(), out id);
+
+                if (id == 0)
+                    return;
+
+                Customers.Add(splitedLine[1].Split('\t')[0].Trim(), (Cust)id);
             }
         }
     }
