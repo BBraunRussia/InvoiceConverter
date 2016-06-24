@@ -8,8 +8,8 @@
     <ProjectGuid>{F9C84786-D37B-4935-901A-D1CA672D12B9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Convert</RootNamespace>
-    <AssemblyName>Convert</AssemblyName>
+    <RootNamespace>InvoiceConverter</RootNamespace>
+    <AssemblyName>InvoiceConverter</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Converter.Program</StartupObject>
+    <StartupObject>InvoiceConverter.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Companies\AnteyFarma.cs" />
     <Compile Include="abstract\ConvFile.cs" />
+    <Compile Include="Companies\GrandCapital.cs" />
     <Compile Include="DocXML.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="Companies\GbuzOKB.cs" />

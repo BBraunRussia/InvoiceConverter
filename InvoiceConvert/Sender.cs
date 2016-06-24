@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 
-namespace Converter
+namespace InvoiceConverter
 {
     public static class Sender
     {

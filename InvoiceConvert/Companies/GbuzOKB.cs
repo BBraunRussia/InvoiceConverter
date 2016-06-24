@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Converter
+namespace InvoiceConverter
 {
     public class GbuzOKB
     {

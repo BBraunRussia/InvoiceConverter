@@ -6,7 +6,7 @@ using System.Data;
 using System.Xml;
 using System.IO;
 
-namespace Converter
+namespace InvoiceConverter
 {
     public class DocXML
     {

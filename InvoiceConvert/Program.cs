@@ -8,7 +8,7 @@ using System.Xml;
 using System.Net.Mail;
 using System.Data.OleDb;
 
-namespace Converter
+namespace InvoiceConverter
 {
     class Program
     {
@@ -48,47 +48,51 @@ namespace Converter
 
                 switch (docXML.Customer)
                 {
-                    case Cust.Shaklin:
-                            Shaklin shaklin = new Shaklin(fileName, docXML);
-                            shaklin.CreateAndSaveFile();
-                            move = false;
-                            break;
-                    case Cust.AptekaSkal:
-                            GbuzOKB fileDbf = new GbuzOKB(fileName, docXML);
-                            fileDbf.CreateFiles();
-                            break;
-                    case Cust.Protek:
-                            newFileName = WorkWithString.CreateString(docXML.Invoice);
-                            myFile.Copy(fileName, newFileName);
-                            break;
-                    case Cust.Voltars:
-                            Voltars voltars = new Voltars(fileName, docXML);
-                            voltars.CreateAndSaveFile();
-                            move = false;
-                            break;
-                    case Cust.UralApteka:
-                            UralApteka uralApteka = new UralApteka(fileName, docXML);
-                            uralApteka.CreateAndSaveFile();
-                            move = false;
-                            break;
                     case Cust.AnteyFarma:
-                            AnteyFarma anteyFarma = new AnteyFarma(fileName, docXML);
-                            anteyFarma.CreateAndSaveFile();
-                            move = false;
-                            break;
+                        AnteyFarma anteyFarma = new AnteyFarma(fileName, docXML);
+                        anteyFarma.CreateAndSaveFile();
+                        move = false;
+                        break;
+                    case Cust.AptekaSkal:
+                        GbuzOKB fileDbf = new GbuzOKB(fileName, docXML);
+                        fileDbf.CreateFiles();
+                        break;
+                    case Cust.GrandCapital:
+
+                        break;
+                    case Cust.Protek:
+                        newFileName = WorkWithString.CreateString(docXML.Invoice);
+                        myFile.Copy(fileName, newFileName);
+                        break;
                     case Cust.SeveroZapad:
-                            SeveroZapad severoZapad = new SeveroZapad(fileName, docXML);
-                            severoZapad.CreateAndSaveFile();
-                            move = false;
-                            break;
+                        SeveroZapad severoZapad = new SeveroZapad(fileName, docXML);
+                        severoZapad.CreateAndSaveFile();
+                        move = false;
+                        break;
+                    case Cust.Shaklin:
+                        Shaklin shaklin = new Shaklin(fileName, docXML);
+                        shaklin.CreateAndSaveFile();
+                        move = false;
+                        break;
+                    case Cust.Voltars:
+                        Voltars voltars = new Voltars(fileName, docXML);
+                        voltars.CreateAndSaveFile();
+                        move = false;
+                        break;
+                    case Cust.UralApteka:
+                        UralApteka uralApteka = new UralApteka(fileName, docXML);
+                        uralApteka.CreateAndSaveFile();
+                        move = false;
+                        break;
+                    
                     case Cust.Katren:
                     case Cust.GBUZ:
                     case Cust.Optimed:
                     case Cust.Optimed2:
                     case Cust.EuropeanMedicalCenter:
                     default:
-                            myFile.Copy(fileName, newFileName);
-                            break;
+                        myFile.Copy(fileName, newFileName);
+                        break;
                 }
                 if (move)
                 {
