@@ -48,9 +48,6 @@ namespace Converter
 
                 switch (docXML.Customer)
                 {
-                    case Cust.Katren:
-                            myFile.Copy(fileName, newFileName);
-                            break;
                     case Cust.Shaklin:
                             Shaklin shaklin = new Shaklin(fileName, docXML);
                             shaklin.CreateAndSaveFile();
@@ -64,19 +61,10 @@ namespace Converter
                             newFileName = WorkWithString.CreateString(docXML.Invoice);
                             myFile.Copy(fileName, newFileName);
                             break;
-                    case Cust.EuropeanMedicalCenter:
-                            myFile.Copy(fileName, newFileName);
-                            break;
-                    case Cust.Optimed:
-                            myFile.Copy(fileName, newFileName);
-                            break;
                     case Cust.Voltars:
                             Voltars voltars = new Voltars(fileName, docXML);
                             voltars.CreateAndSaveFile();
                             move = false;
-                            break;
-                    case Cust.Optimed2:
-                            myFile.Copy(fileName, newFileName);
                             break;
                     case Cust.UralApteka:
                             UralApteka uralApteka = new UralApteka(fileName, docXML);
@@ -88,14 +76,16 @@ namespace Converter
                             anteyFarma.CreateAndSaveFile();
                             move = false;
                             break;
-                    case Cust.GBUZ:
-                            myFile.Copy(fileName, newFileName);
-                            break;
                     case Cust.SeveroZapad:
                             SeveroZapad severoZapad = new SeveroZapad(fileName, docXML);
                             severoZapad.CreateAndSaveFile();
                             move = false;
                             break;
+                    case Cust.Katren:
+                    case Cust.GBUZ:
+                    case Cust.Optimed:
+                    case Cust.Optimed2:
+                    case Cust.EuropeanMedicalCenter:
                     default:
                             myFile.Copy(fileName, newFileName);
                             break;
