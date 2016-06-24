@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace InvoiceConverter
+/* XLS */
+
+namespace InvoiceConverter.Companies
 {
     public class SeveroZapad : ConvFile
     {
@@ -17,8 +19,8 @@ namespace InvoiceConverter
 
         protected override void CreateFileName()
         {
-            _newFileName = _docXML.Torg12 +".xls";
-            _newFilePath = Settings.folderConv + @"\" + _docXML.CustNumberSAP + @"\" + _newFileName;
+            _newFileName = string.Concat(_docXML.Torg12, ".xls");
+            CreateNewPath();
         }
 
         public override void CreateAndSaveFile()

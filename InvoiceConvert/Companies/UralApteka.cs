@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace InvoiceConverter
+/* XML */
+
+namespace InvoiceConverter.Companies
 {
     public class UralApteka : ConvFile
     {
@@ -13,13 +15,12 @@ namespace InvoiceConverter
 
         protected override void CreateFileName()
         {
-            _newFileName = WorkWithString.CreateString(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
-            _newFilePath = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
+            _newFileName = string.Concat(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
+            CreateNewPath();
         }
 
         public override void CreateAndSaveFile()
         {
-            Encoding ANSI = Encoding.GetEncoding(1251);
             XmlTextWriter textWritter = new XmlTextWriter(_newFilePath, ANSI);
             textWritter.WriteStartDocument();
             textWritter.WriteStartElement("Документ");

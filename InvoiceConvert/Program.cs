@@ -7,6 +7,7 @@ using System.Data;
 using System.Xml;
 using System.Net.Mail;
 using System.Data.OleDb;
+using InvoiceConverter.Companies;
 
 namespace InvoiceConverter
 {
@@ -16,7 +17,9 @@ namespace InvoiceConverter
         {                        
             string[] filePaths = MyFile.GetFiles();
             if (filePaths == null)
+            {
                 return;
+            }
 
             foreach (string filePath in filePaths)
             {
@@ -24,8 +27,7 @@ namespace InvoiceConverter
 
                 DocXML docXML = new DocXML(filePath);
 
-                FileInfo test = new FileInfo(filePath);
-                string fileName = test.Name; // имя файла
+                string fileName = Path.GetFileName(filePath); // имя файла
 
                 try
                 {
@@ -44,13 +46,15 @@ namespace InvoiceConverter
                 
                 bool move = true;
 
-                string newFileName = WorkWithString.CreateString(docXML.Invoice, "_", docXML.InvoiceDate);
+                string newFileName = string.Concat(docXML.Invoice, "_", docXML.InvoiceDate);
+
+                ConvFile file;
 
                 switch (docXML.Customer)
                 {
                     case Cust.AnteyFarma:
-                        AnteyFarma anteyFarma = new AnteyFarma(fileName, docXML);
-                        anteyFarma.CreateAndSaveFile();
+                        file = new AnteyFarma(fileName, docXML);
+                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.AptekaSkal:
@@ -58,30 +62,31 @@ namespace InvoiceConverter
                         fileDbf.CreateFiles();
                         break;
                     case Cust.GrandCapital:
-
+                        file = new GrandCapital(fileName, docXML);
+                        file.CreateAndSaveFile();
                         break;
                     case Cust.Protek:
-                        newFileName = WorkWithString.CreateString(docXML.Invoice);
+                        newFileName = string.Concat(docXML.Invoice);
                         myFile.Copy(fileName, newFileName);
                         break;
                     case Cust.SeveroZapad:
-                        SeveroZapad severoZapad = new SeveroZapad(fileName, docXML);
-                        severoZapad.CreateAndSaveFile();
+                        file = new SeveroZapad(fileName, docXML);
+                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.Shaklin:
-                        Shaklin shaklin = new Shaklin(fileName, docXML);
-                        shaklin.CreateAndSaveFile();
+                        file = new Shaklin(fileName, docXML);
+                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.Voltars:
-                        Voltars voltars = new Voltars(fileName, docXML);
-                        voltars.CreateAndSaveFile();
+                        file = new Voltars(fileName, docXML);
+                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.UralApteka:
-                        UralApteka uralApteka = new UralApteka(fileName, docXML);
-                        uralApteka.CreateAndSaveFile();
+                        file = new UralApteka(fileName, docXML);
+                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     

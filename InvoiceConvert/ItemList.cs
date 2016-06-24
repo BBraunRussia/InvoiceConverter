@@ -32,9 +32,9 @@ namespace InvoiceConverter
 
         public string GetItemAsDate(int index)
         {
-            string str = GetItem(index);
+            string value = GetItem(index);
 
-            return (str.Length > 0) ? WorkWithString.CreateString(str.Substring(6, 2), ".", str.Substring(4, 2), ".", str.Substring(0, 4)) : str;
+            return MyDate.GetDate(value);
         }
 
         public string GetItem(int index)

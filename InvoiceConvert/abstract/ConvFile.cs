@@ -31,5 +31,10 @@ namespace InvoiceConverter
             MyFile myFile = new MyFile(_docXML.CustNumberSAP);
             myFile.MoveFile(destFolder, _fileName);
         }
+
+        protected void CreateNewPath()
+        {
+            _newFilePath = string.Concat(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
+        }
     }
 }

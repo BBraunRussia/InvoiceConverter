@@ -7,7 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace InvoiceConverter
+/* DBF */
+
+namespace InvoiceConverter.Companies
 {
     public class GbuzOKB
     {
@@ -40,7 +42,7 @@ namespace InvoiceConverter
 
         private DataTable createTableHeader()
         {
-            _sqlTable = WorkWithString.CreateString("create table ", _fileName, " ([DocNumber] char(15), ", "[RegDate] Date, ", "[Inn] char(22), ",
+            _sqlTable = string.Concat("create table ", _fileName, " ([DocNumber] char(15), ", "[RegDate] Date, ", "[Inn] char(22), ",
                 "[Contr] int, ", "[Consig] int, ", "[Order] int, ", "[Remark] char(100))");
 
             DataTable dt = new DataTable();
@@ -59,7 +61,7 @@ namespace InvoiceConverter
 
         private DataTable createTableBody()
         {
-            _sqlTable = WorkWithString.CreateString("create table ", _fileName, " ([DocNumber] char(15), ", "[GoodsID] numeric(10,0), ", "[GoodsN] char(100), ",
+            _sqlTable = string.Concat("create table ", _fileName, " ([DocNumber] char(15), ", "[GoodsID] numeric(10,0), ", "[GoodsN] char(100), ",
                 "[CountryID] numeric(10,0), ", "[CountryN] char(100), ", "[FirmID] numeric(10,0), ", "[FirmN] char(100), ", "[Quantity] numeric(15,3), ",
                 "[PriceReg] numeric(15,2), ", "[PriceF] numeric(15,2), ", "[Margin] numeric(10,2), ", "[MarginSum] numeric(10,2), ", "[PriceWN] numeric(15,2), ",
                 "[StrSumWN] numeric(15,2), ", "[Price] numeric(15,2), ", "[StrSum] numeric(15,2), ", "[NDS] numeric(10,2), ", "[NDSSum] numeric(15,2), ",
@@ -114,9 +116,9 @@ namespace InvoiceConverter
         private void DataSetIntoDBF(DataTable dt)
         {
             ArrayList list = new ArrayList();
-            
-            string path = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _fileName, ".dbf");
-            string pathWithoutFile = WorkWithString.CreateString(Settings.folderConv, @"\", _docXML.CustNumberSAP);
+
+            string path = string.Concat(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _fileName, ".dbf");
+            string pathWithoutFile = string.Concat(Settings.folderConv, @"\", _docXML.CustNumberSAP);
 
             if (File.Exists(path))
                 File.Delete(path);

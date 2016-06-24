@@ -64,12 +64,12 @@ namespace InvoiceConverter
 
         private string CreateFilePathWithCustNumber(string folder, string file)
         {
-            return CreateFilePath(WorkWithString.CreateString(folder, @"\", _custNumberSAP), file);
+            return CreateFilePath(string.Concat(folder, @"\", _custNumberSAP), file);
         }
 
         private static string CreateFilePath(string folder, string file)
         {
-            return WorkWithString.CreateString(folder, @"\", file);
+            return string.Concat(folder, @"\", file);
         }
 
         private static void DeleteIfExistFile(string newFilePath)

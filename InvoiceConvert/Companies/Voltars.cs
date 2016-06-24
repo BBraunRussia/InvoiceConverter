@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace InvoiceConverter
+/* TXT */
+
+namespace InvoiceConverter.Companies
 {
     public class Voltars : ConvFile
     {
@@ -19,8 +21,8 @@ namespace InvoiceConverter
             while (_docXML.Invoice[0] == '0')
                 _docXML.Invoice = _docXML.Invoice.Remove(0, 1);
 
-            _newFileName = _docXML.CustNumber + "_" + _docXML.Invoice + "_" + _docXML.InvoiceDate + ".txt";
-            _newFilePath = Settings.folderConv + @"\" + _docXML.CustNumberSAP + @"\" + _newFileName;
+            _newFileName = string.Concat(_docXML.CustNumber, "_", _docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
+            CreateNewPath();
         }
 
         public override void CreateAndSaveFile()
@@ -29,7 +31,7 @@ namespace InvoiceConverter
             {
                 using (StreamWriter sw = new StreamWriter(_newFilePath, false, ANSI))
                 {
-                    sw.WriteLine(WorkWithString.CreateString(_docXML.CustNumber + "\t" + _docXML.Invoice + "\t" + _docXML.InvoiceDate + "\t" +
+                    sw.WriteLine(string.Concat(_docXML.CustNumber + "\t" + _docXML.Invoice + "\t" + _docXML.InvoiceDate + "\t" +
                         _docXML.Invoice + "\t" + _docXML.InvoiceDate));
 
                     for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
@@ -38,7 +40,7 @@ namespace InvoiceConverter
                         if (tdline.Length > 120)
                             tdline = tdline.Substring(0, 120);
 
-                        sw.WriteLine(WorkWithString.CreateString(_docXML.idTnrProductCode.GetItem(k) + "\t" + _docXML.tdLine.GetItem(k) + "\t" + _docXML.menge.GetItem(k) +
+                        sw.WriteLine(string.Concat(_docXML.idTnrProductCode.GetItem(k) + "\t" + _docXML.tdLine.GetItem(k) + "\t" + _docXML.menge.GetItem(k) +
                             "\t" + _docXML.priceNoVat.GetItem(k) + "\t" + _docXML.vatrate.GetItem(k) + "\t" + _docXML.mengVat.GetItem(k) + "\t" +
                             _docXML.gtdNo.GetItem(k) + "\t" + _docXML.gtdHerkl.GetItem(k) + "\t" + _docXML.labelBatch.GetItem(k) + "\t" +
                             _docXML.actManPrRub.GetItem(k) + "\t" + _docXML.vfDat.GetItem(k) + "\t" + _docXML.name1.GetItem(k) + "\t" +

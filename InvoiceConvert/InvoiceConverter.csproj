@@ -50,6 +50,7 @@
     <Compile Include="DocXML.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="Companies\GbuzOKB.cs" />
+    <Compile Include="MyDate.cs" />
     <Compile Include="MyFile.cs" />
     <Compile Include="ItemList.cs" />
     <Compile Include="Logger.cs" />

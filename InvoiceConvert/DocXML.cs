@@ -24,7 +24,6 @@ namespace InvoiceConverter
 
         private string _file;
         private string _dateInvoice;
-        private string _dateTorg12;
 
         public ItemList idTnrProductCode; //код товара(внутренний) E1EDP19 - QUALF = 002
         public ItemList idTnrBarCode; //Штрих-код E1EDP19 - QUALF = 003
@@ -66,20 +65,29 @@ namespace InvoiceConverter
         public string city; //город E1EDK28-BCOUN = RU
         public string bank; //банк E1EDK28-BCOUN = RU
         public string otdel; //ОтделениеБанка E1EDK28-BCOUN = RU
+        
+        private string _torg12Date;
 
         public string Invoice { get; set; }
         public string CustNumber { get; set; }
 
         public string InvoiceDate
         {
-            get { return WorkWithString.CreateString(_dateInvoice.Substring(6, 2), ".", _dateInvoice.Substring(4, 2), ".", _dateInvoice.Substring(0, 4)); }
+            get { return string.Concat(_dateInvoice.Substring(6, 2), ".", _dateInvoice.Substring(4, 2), ".", _dateInvoice.Substring(0, 4)); }
             set { _dateInvoice = value; }
         }
 
         public string CustNumberSAP { get; private set; }
         public Cust Customer { get; private set; }
         public string Curcy { get; private set; }
+        
         public string Torg12 { get; private set; }
+        public string Torg12Date
+        {
+            get { return MyDate.GetDate(_torg12Date); }
+            private set { _torg12Date = value; }
+        }
+
         public string Summe { get; private set; }
 
         public int Contr { get { return ((Comp == "299") || ((Comp == "0299"))) ? 150 : 7448; } } // выбор компании Гематек или ББраун
@@ -133,7 +141,7 @@ namespace InvoiceConverter
             InvoiceDate = ds.Tables[4].Rows[0].ItemArray[4].ToString(); //дата счёт-фактуры E1EDK02-QUALF = 009
 
             Torg12 = ds.Tables[4].Rows[2].ItemArray[2].ToString(); //номер накладной E1EDK02-QUALF = 012
-            _dateTorg12 = ds.Tables[4].Rows[2].ItemArray[4].ToString(); //дата накладной E1EDK02-QUALF = 012
+            Torg12Date = ds.Tables[4].Rows[2].ItemArray[4].ToString(); //дата накладной E1EDK02-QUALF = 012
             
             Comp = ds.Tables[3].Rows[4].ItemArray[3].ToString(); //Код поставщика
             post = ds.Tables[3].Rows[4].ItemArray[4].ToString(); //поставщик E1EDKA1-PARVW = BK
@@ -312,22 +320,13 @@ namespace InvoiceConverter
             {
                 Customer = Settings.Customers[value];
             }
-            /*
-            foreach (KeyValuePair<Cust, string> customer in Settings.Customers)
-            {
-                if (value == customer.Value)
-                {
-                    Customer = customer.Key;
-                    break;
-                }
-            }
-            */
-            createFolder();
+            
+            CreateFolder();
         }
 
-        private void createFolder()
+        private void CreateFolder()
         {
-            string filePath = WorkWithString.CreateString(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
+            string filePath = string.Concat(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
             MyFile.CreateFolder(filePath);
         }
     }

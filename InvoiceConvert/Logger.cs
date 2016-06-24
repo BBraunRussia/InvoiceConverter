@@ -10,12 +10,12 @@ namespace InvoiceConverter
     {
         public static void FileProcessed(string file, string fileNew)
         {
-            Write(WorkWithString.CreateString("Файл ", file, " был конвертирован в файл ", fileNew));
+            Write(string.Concat("Файл ", file, " был конвертирован в файл ", fileNew));
         }
 
         public static void ErrorCreated(string fileName, string error)
         {
-            Write(WorkWithString.CreateString("Ошибка при обработке файла ", fileName, " - ", error));
+            Write(string.Concat("Ошибка при обработке файла ", fileName, " - ", error));
             Sender.SendMail(error);
         }
 
@@ -38,7 +38,7 @@ namespace InvoiceConverter
         {
             using (StreamWriter swLog = new StreamWriter("log.txt", true, Encoding.Unicode))
             {
-                swLog.WriteLine(WorkWithString.CreateString(DateTime.Now.ToString(), ": ", Message));
+                swLog.WriteLine(string.Concat(DateTime.Now.ToString(), ": ", Message));
             }
         }
     }

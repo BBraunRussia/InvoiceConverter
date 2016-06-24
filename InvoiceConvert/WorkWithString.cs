@@ -11,15 +11,5 @@ namespace InvoiceConverter
         {
             return str.Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;").Replace("\"", "&quot;");
         }
-
-        public static string CreateString(params string[] Params)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < Params.Length; i++)
-                sb.Append(Params[i]);
-
-            return sb.ToString();
-        }
     }
 }
