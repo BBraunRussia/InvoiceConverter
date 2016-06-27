@@ -47,6 +47,7 @@ namespace InvoiceConverter
         public ItemList ruRegCertificate;
         public ItemList ruIssueDateCertifacate;
         public ItemList ruValidToDateCertificate;
+        public ItemList declCenter;
         public ItemList totalVat;
         public ItemList hsDat;
 
@@ -119,6 +120,7 @@ namespace InvoiceConverter
             ruRegCertificate = new ItemList();
             ruIssueDateCertifacate = new ItemList();
             ruValidToDateCertificate = new ItemList();
+            declCenter = new ItemList();
             totalVat = new ItemList();
             hsDat = new ItemList();
             
@@ -302,6 +304,10 @@ namespace InvoiceConverter
             nodes = doc.GetElementsByTagName("RU_VALID_TO_DATE_CERTIFICATE");
             foreach (XmlNode node in nodes)
                 ruValidToDateCertificate.Add(node.InnerText.Trim());
+
+            nodes = doc.GetElementsByTagName("DECL_CENTER");
+            foreach (XmlNode node in nodes)
+                declCenter.Add(node.InnerText.Trim());
 
             nodes = doc.GetElementsByTagName("NAME1");
             foreach (XmlNode node in nodes)
