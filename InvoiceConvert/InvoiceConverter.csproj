@@ -46,11 +46,13 @@
   <ItemGroup>
     <Compile Include="Companies\AnteyFarma.cs" />
     <Compile Include="abstract\ConvFile.cs" />
+    <Compile Include="Companies\FarmTreid.cs" />
     <Compile Include="Companies\GrandCapital.cs" />
     <Compile Include="DocXML.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="Companies\GbuzOKB.cs" />
     <Compile Include="MyDate.cs" />
+    <Compile Include="MyDBF.cs" />
     <Compile Include="MyFile.cs" />
     <Compile Include="ItemList.cs" />
     <Compile Include="Logger.cs" />
