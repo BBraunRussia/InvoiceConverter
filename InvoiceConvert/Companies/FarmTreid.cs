@@ -60,7 +60,16 @@ namespace InvoiceConverter.Companies
             dt.Columns.Add("SERTGIVE", typeof(DateTime));
             dt.Columns.Add("SUMSNDS", typeof(Double));//*
 
-            //dt.Rows.Add(new object[7] { _docXML.Invoice, _docXML.InvoiceDate, INN, _docXML.Contr, CONSIG, ORDER, REMARK });
+            for (int i = 0; i < _docXML.idTnrProductCode.Count; i++)
+            {
+                dt.Rows.Add(new object[] { _docXML.Torg12, _docXML.Torg12Date, _docXML.idTnrProductCode.GetItem(i), string.Empty,
+                    _docXML.actManPrRub.GetItem(i), _docXML.mengVat.GetItem(i), _docXML.priceNoVat.GetItem(i), _docXML.menge.GetItem(i),
+                    _docXML.labelBatch.GetItem(i), _docXML.vfDat.GetItemAsDate(i), _docXML.hsDat.GetItemAsDate(i), _docXML.kText.GetItem(i),
+                    _docXML.gtdHerkl.GetItem(i), _docXML.mfName1.GetItem(i), _docXML.countInPackage.GetItem(i), _docXML.vatrate.GetItem(i),
+                    string.Empty, _docXML.zhnvls, string.Empty, string.Empty, _docXML.gtdNo.GetItem(i), _docXML.ruRegCertificate.GetItem(i),
+                    _docXML.ruValidToDateCertificate.GetItem(i), _docXML.declCenter.GetItem(i), _docXML.Summe, _docXML.Invoice, _docXML.InvoiceDate,
+                    _docXML.gtdHerkl.GetItem(i), _docXML.ruIssueDateCertifacate.GetItem(i), _docXML.totalVat.GetItem(i) });
+            }
 
             return dt;
         }
