@@ -48,22 +48,23 @@ namespace InvoiceConverter
 
                 string newFileName = string.Concat(docXML.Invoice, "_", docXML.InvoiceDate);
 
-                ConvFile file;
+                ConvFile file = null;
 
                 switch (docXML.Customer)
                 {
                     case Cust.AnteyFarma:
                         file = new AnteyFarma(fileName, docXML);
-                        file.CreateAndSaveFile();
                         move = false;
                         break;
+                    //TODO: разобраться почему кейс различается с именем класса
                     case Cust.AptekaSkal:
-                        GbuzOKB fileDbf = new GbuzOKB(fileName, docXML);
-                        fileDbf.CreateFiles();
+                        file = new GbuzOKB(fileName, docXML);
                         break;
                     case Cust.GrandCapital:
                         file = new GrandCapital(fileName, docXML);
-                        file.CreateAndSaveFile();
+                        break;
+                    case Cust.FarmTreid:
+                        file = new FarmTreid(fileName, docXML);
                         break;
                     case Cust.Protek:
                         newFileName = string.Concat(docXML.Invoice);
@@ -71,22 +72,18 @@ namespace InvoiceConverter
                         break;
                     case Cust.SeveroZapad:
                         file = new SeveroZapad(fileName, docXML);
-                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.Shaklin:
                         file = new Shaklin(fileName, docXML);
-                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.Voltars:
                         file = new Voltars(fileName, docXML);
-                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     case Cust.UralApteka:
                         file = new UralApteka(fileName, docXML);
-                        file.CreateAndSaveFile();
                         move = false;
                         break;
                     
@@ -99,6 +96,12 @@ namespace InvoiceConverter
                         myFile.Copy(fileName, newFileName);
                         break;
                 }
+
+                if (file != null)
+                {
+                    file.CreateAndSaveFile();
+                }
+
                 if (move)
                 {
                     myFile.MoveFile(Settings.folderXML, fileName);

@@ -55,6 +55,7 @@
     <Compile Include="ItemList.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ExcelWriter.cs" />
+    <Compile Include="MyXML.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sender.cs" />
