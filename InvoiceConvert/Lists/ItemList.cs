@@ -29,15 +29,8 @@ namespace InvoiceConverter
 
             return str;
         }
-
-        public string GetItemAsDate(int index)
-        {
-            string value = GetItem(index);
-
-            return MyDate.GetDate(value);
-        }
-
-        public string GetItem(int index)
+        
+        public virtual string GetItem(int index)
         {
             return (_list.Count > index) ? _list[index] : string.Empty;
         }

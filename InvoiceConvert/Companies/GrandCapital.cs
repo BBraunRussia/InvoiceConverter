@@ -49,7 +49,7 @@ namespace InvoiceConverter.Companies
                 myXML.CreateXMLNode("PricewNDS", _docXML.priceNoVat.GetItem(i), node);
                 myXML.CreateXMLNode("GTD", _docXML.gtdNo.GetItem(i), node);
                 myXML.CreateXMLNode("Series", _docXML.labelBatch.GetItem(i), node);
-                myXML.CreateXMLNode("ProductionDate", _docXML.hsDat.GetItemAsDate(i), node);
+                myXML.CreateXMLNode("ProductionDate", _docXML.hsDat.GetItem(i), node);
                 myXML.CreateXMLNode("ExpirationDate", _docXML.vfDat.GetItem(i), node);
                 myXML.CreateXMLNode("Barcode", _docXML.idTnrBarCode.GetItem(i), node);
             }

@@ -64,7 +64,7 @@ namespace InvoiceConverter
                         file = new GrandCapital(fileName, docXML);
                         break;
                     case Cust.FarmTreid:
-                        file = new FarmTreid(fileName, docXML);
+                        file = new FarmTreyd(fileName, docXML);
                         break;
                     case Cust.Protek:
                         newFileName = string.Concat(docXML.Invoice);

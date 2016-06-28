@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Xml;
 using System.IO;
+using InvoiceConverter.Lists;
 
 namespace InvoiceConverter
 {
@@ -74,7 +75,7 @@ namespace InvoiceConverter
 
         public string InvoiceDate
         {
-            get { return string.Concat(_dateInvoice.Substring(6, 2), ".", _dateInvoice.Substring(4, 2), ".", _dateInvoice.Substring(0, 4)); }
+            get { return MyDate.GetDate(_dateInvoice); }
             set { _dateInvoice = value; }
         }
 
@@ -103,14 +104,14 @@ namespace InvoiceConverter
 
             tdLine = new ItemList();
             menge = new ItemList();
-            priceNoVat = new ItemList();
+            priceNoVat = new ItemListDouble();
             vatrate = new ItemList();
-            mengVat = new ItemList();
+            mengVat = new ItemListDouble();
             gtdNo = new ItemList();
             gtdHerkl = new ItemList();
             labelBatch = new ItemList();
-            actManPrRub = new ItemList();
-            vfDat = new ItemList();
+            actManPrRub = new ItemListDouble();
+            vfDat = new ItemListDate();
             name1 = new ItemList();
             countInPackage = new ItemList();
             menee = new ItemList();
@@ -121,8 +122,8 @@ namespace InvoiceConverter
             ruIssueDateCertifacate = new ItemList();
             ruValidToDateCertificate = new ItemList();
             declCenter = new ItemList();
-            totalVat = new ItemList();
-            hsDat = new ItemList();
+            totalVat = new ItemListDouble();
+            hsDat = new ItemListDate();
             
             zhnvls = "0";
         }

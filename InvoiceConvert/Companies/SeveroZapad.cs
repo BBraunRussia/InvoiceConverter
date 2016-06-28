@@ -56,7 +56,7 @@ namespace InvoiceConverter.Companies
                         columnIndex++;
                         writer.WriteCell(rowIndex, columnIndex, _docXML.vfDat.GetItem(i));
                         columnIndex++;
-                        writer.WriteCell(rowIndex, columnIndex, _docXML.hsDat.GetItemAsDate(i));
+                        writer.WriteCell(rowIndex, columnIndex, _docXML.hsDat.GetItem(i));
                         columnIndex++;
                         writer.WriteCell(rowIndex, columnIndex, _docXML.mfName1.GetItem(i));
                         columnIndex++;

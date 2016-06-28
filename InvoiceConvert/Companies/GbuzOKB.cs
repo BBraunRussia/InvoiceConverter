@@ -19,6 +19,11 @@ namespace InvoiceConverter.Companies
         public GbuzOKB(string sourceFileName, DocXML docXML)
             : base(sourceFileName, docXML) { }
 
+        protected override void CreateFileName()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void CreateAndSaveFile()
         {
             _newFileName = "h" + _docXML.Invoice;
