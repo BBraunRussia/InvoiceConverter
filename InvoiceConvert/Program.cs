@@ -56,9 +56,8 @@ namespace InvoiceConverter
                         file = new AnteyFarma(fileName, docXML);
                         move = false;
                         break;
-                    //TODO: разобраться почему кейс различается с именем класса
-                    case Cust.AptekaSkal:
-                        file = new GbuzOKB(fileName, docXML);
+                    case Cust.AptekaSkladChel:
+                        file = new AptekaSkladChel(fileName, docXML);
                         break;
                     case Cust.GrandCapital:
                         file = new GrandCapital(fileName, docXML);

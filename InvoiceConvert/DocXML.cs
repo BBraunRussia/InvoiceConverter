@@ -117,10 +117,10 @@ namespace InvoiceConverter
             menee = new ItemList();
             kText = new ItemList();
             mfName1 = new ItemList();
-            mengNoVat = new ItemList();
+            mengNoVat = new ItemListDouble();
             ruRegCertificate = new ItemList();
             ruIssueDateCertifacate = new ItemList();
-            ruValidToDateCertificate = new ItemList();
+            ruValidToDateCertificate = new ItemListDate();
             declCenter = new ItemList();
             totalVat = new ItemListDouble();
             hsDat = new ItemListDate();

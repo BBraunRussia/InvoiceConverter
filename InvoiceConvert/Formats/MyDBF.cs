@@ -16,13 +16,13 @@ namespace InvoiceConverter
 
         public MyDBF(string fileName, DocXML docXML)
         {
-            this.fileName = fileName;
+            this.fileName = fileName.Cut(8);
             this.docXML = docXML;
         }
 
         public void DataTableIntoDBF(DataTable dt, string createSqlTable)
         {
-            string path = string.Concat(Settings.folderConv, @"\", docXML.CustNumberSAP, @"\", fileName, ".dbf");
+            string path = string.Concat(Settings.folderConv, @"\", docXML.CustNumberSAP, @"\", fileName, ".DBF");
             string pathWithoutFile = string.Concat(Settings.folderConv, @"\", docXML.CustNumberSAP);
 
             if (File.Exists(path))

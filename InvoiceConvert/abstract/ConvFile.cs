@@ -15,9 +15,8 @@ namespace InvoiceConverter
         protected string _fileName;
         protected string _newFileName;
 
-        protected abstract void CreateFileName();
         public abstract void CreateAndSaveFile();
-
+        
         public ConvFile(string fileName, DocXML docXML)
         {
             _fileName = fileName;
@@ -25,6 +24,8 @@ namespace InvoiceConverter
 
             CreateFileName();
         }
+
+        protected virtual void CreateFileName() { }
 
         protected void MoveFile(string destFolder)
         {
