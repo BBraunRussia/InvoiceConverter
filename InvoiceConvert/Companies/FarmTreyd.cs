@@ -69,7 +69,7 @@ namespace InvoiceConverter.Companies
 
             for (int i = 0; i < _docXML.idTnrProductCode.Count; i++)
             {
-                dt.Rows.Add(new object[] { _docXML.Torg12.Cut(20), _docXML.Torg12Date, _docXML.idTnrProductCode.GetItem(i).Cut(12),
+                dt.Rows.Add(new object[] { _docXML.Torg12.Cut(20), _docXML.Torg12Date, _docXML.idTnrProductCode.GetItem(i).CutFromLeft(12),
                     string.Empty, _docXML.actManPrRub.GetItem(i), _docXML.mengVat.GetItem(i), _docXML.priceNoVat.GetItem(i), _docXML.menge.GetItem(i),
                     _docXML.labelBatch.GetItem(i).Cut(20), _docXML.vfDat.GetItem(i), _docXML.hsDat.GetItem(i), _docXML.kText.GetItem(i).Cut(80),
                     _docXML.gtdHerkl.GetItem(i).Cut(15), _docXML.mfName1.GetItem(i).Cut(40), _docXML.countInPackage.GetItem(i),
