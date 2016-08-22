@@ -85,8 +85,9 @@ namespace InvoiceConverter
                         file = new UralApteka(fileName, docXML);
                         move = false;
                         break;
-                    
                     case Cust.Katren:
+                        file = new Katren(fileName, docXML);
+                        break;
                     case Cust.GBUZ:
                     case Cust.Optimed:
                     case Cust.Optimed2:

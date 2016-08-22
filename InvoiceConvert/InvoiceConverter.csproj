@@ -48,6 +48,7 @@
     <Compile Include="abstract\ConvFile.cs" />
     <Compile Include="Companies\FarmTreyd.cs" />
     <Compile Include="Companies\GrandCapital.cs" />
+    <Compile Include="Companies\Katren.cs" />
     <Compile Include="DocXML.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="Companies\GbuzOKB.cs" />
