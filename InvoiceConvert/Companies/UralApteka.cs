@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Serilog;
 
 /* XML */
 
@@ -10,6 +11,10 @@ namespace InvoiceConverter.Companies
 {
     public class UralApteka : ConvFile
     {
+        private const string COMPANY_NAME = "UralApteka";
+
+        public static ILogger logger = LoggerManager.Logger;
+
         public UralApteka(string sourceFile, DocXML docXML)
             : base(sourceFile, docXML) { }
 
@@ -216,7 +221,7 @@ namespace InvoiceConverter.Companies
             }
             doc.Save(_newFilePath);
 
-            Logger.FileProcessed(_fileName, _newFilePath);
+            logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
             MoveFile(Settings.folderXML);
         }
     }

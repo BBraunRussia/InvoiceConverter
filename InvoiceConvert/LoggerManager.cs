@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Serilog;
 
 namespace InvoiceConverter
 {
-    public static class Logger
+    public static class LoggerManager
     {
+        private static ILogger logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.ColoredConsole()
+            .WriteTo.RollingFile(@"Log\Log-{Date}.txt")
+            .CreateLogger();
+
+        public static ILogger Logger { get { return logger; } }
+
         public static void FileProcessed(string file, string fileNew)
         {
             Write(string.Concat("Файл ", file, " был конвертирован в файл ", fileNew));
@@ -23,17 +32,7 @@ namespace InvoiceConverter
         {
             Write("Создание папки " + folder);
         }
-
-        public static void BeginWork()
-        {
-            Write("Обработка началась");
-        }
-
-        public static void EndWork()
-        {
-            Write("Обработка завершена");
-        }
-
+        
         private static void Write(string Message)
         {
             using (StreamWriter swLog = new StreamWriter("log.txt", true, Encoding.Unicode))

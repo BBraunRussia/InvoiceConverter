@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Serilog;
 
 /* XLS */
 
@@ -13,6 +14,9 @@ namespace InvoiceConverter.Companies
         private const int INDEX_ROW_BEGIN_HEADER = 0;
         private const int INDEX_COLUMN_BEGIN_HEADER = 0;
         private const int INDEX_BEGIN = 2;
+        private const string COMPANY_NAME = "SeveroZapad";
+
+        public static ILogger logger = LoggerManager.Logger;
 
         public SeveroZapad(string sourceFile, DocXML docXML) :
             base(sourceFile, docXML) { }
@@ -86,13 +90,13 @@ namespace InvoiceConverter.Companies
                     writer.EndWrite();
                 }
 
-                Logger.FileProcessed(_fileName, _newFilePath);
+                logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
                 MoveFile(Settings.folderXML);
             }
             catch (Exception err)
             {
+                logger.Error(err, COMPANY_NAME + " Ошибка при обработке файла {filename}", _newFilePath);
                 MyFile.MoveFileError(_fileName);
-                Logger.ErrorCreated(_fileName, err.Message);
             }
         }
 

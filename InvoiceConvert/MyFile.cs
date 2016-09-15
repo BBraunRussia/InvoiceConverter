@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Serilog;
 
 namespace InvoiceConverter
 {
     public class MyFile
     {
-        string _custNumberSAP;
+        private string _custNumberSAP;
+        public static ILogger logger = LoggerManager.Logger;
 
         public MyFile(string custNumberSAP)
         {
@@ -39,7 +41,7 @@ namespace InvoiceConverter
             }
             catch (Exception err)
             {
-                Logger.ErrorCreated(filePath, err.Message);
+                logger.Error(err, "Ошибка при обработке файла {filename}", filePath);
             }
         }
 
@@ -54,11 +56,11 @@ namespace InvoiceConverter
                 DeleteIfExistFile(newFilePath);
 
                 File.Copy(filePath, newFilePath, true);
-                Logger.FileProcessed(fileName, newFilePath);
+                logger.Information("Файл {filename} скопирован {newfilename}", fileName, newFilePath);
             }
             catch(Exception err)
             {
-                Logger.ErrorCreated(newFilePath, err.Message);
+                logger.Error(err, "Ошибка при обработке файла {filename}", newFilePath);
             }
         }
 
@@ -89,7 +91,7 @@ namespace InvoiceConverter
             }
             catch (Exception err)
             {
-                Logger.ErrorCreated(Settings.folderNew, err.Message);
+                logger.Error(err, "Ошибка {folder}", Settings.folderNew);
                 return null;
             }
         }
@@ -101,7 +103,7 @@ namespace InvoiceConverter
             if (!Directory.Exists(pathOnly))
             {
                 Directory.CreateDirectory(pathOnly);
-                Logger.FolderCreated(pathOnly);
+                logger.Information("Папка создана {folder}", pathOnly);
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Serilog;
 
 /* XML */
 
@@ -14,6 +15,8 @@ namespace InvoiceConverter.Companies
         private const string INN = "7729418511";
         private const string OUR_COMPANY_CODE = "001127";
         private const string OUR_COMPANY_NAME = "ООО \"Б.Браун Медикал\"";
+
+        public static ILogger logger = LoggerManager.Logger;
 
         public GrandCapital(string fileName, DocXML docXML)
             : base(fileName, docXML)
@@ -55,7 +58,7 @@ namespace InvoiceConverter.Companies
             }
             myXML.Save();
 
-            Logger.FileProcessed(_fileName, _newFilePath);
+            logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
         }
     }
 }

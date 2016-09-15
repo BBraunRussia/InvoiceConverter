@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Serilog;
 
 /* TXT */
 
@@ -10,7 +11,9 @@ namespace InvoiceConverter.Companies
 {
     public class Voltars : ConvFile
     {
-        const string COMPANY_NAME = "AnteyFarma";
+        const string COMPANY_NAME = "Voltars";
+
+        public static ILogger logger = LoggerManager.Logger;
 
         public Voltars(string sourceFile, DocXML docXML) :
             base(sourceFile, docXML) { }        
@@ -47,13 +50,13 @@ namespace InvoiceConverter.Companies
                             _docXML.countInPackage.GetItem(k) + "\t" + _docXML.menee.GetItem(k)));
                     }
 
-                    Logger.FileProcessed(_fileName, _newFilePath);
+                    logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
                     MoveFile(Settings.folderXML);
                 }
             }
             catch (Exception err)
             {
-                Logger.ErrorCreated(COMPANY_NAME, err.Message);
+                logger.Error(err, COMPANY_NAME + " Ошибка при обработке файла {filename}", _newFilePath);
                 File.Delete(_fileName);
                 MoveFile(Settings.folderXMLError);
             }
