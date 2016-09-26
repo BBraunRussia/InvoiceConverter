@@ -7,31 +7,31 @@ using System.Data;
 using System.Xml;
 using System.Net.Mail;
 using System.Data.OleDb;
-using InvoiceConverter.Companies;
-using Serilog;
+using InvoiceConverter.Domain.Logger;
+using InvoiceConverter.Domain.Common;
+using InvoiceConverter.Domain.Abstract;
+using InvoiceConverter.Domain.Companies;
 
 namespace InvoiceConverter
 {
     class Program
     {
-        public static ILogger logger = LoggerManager.Logger;
-
         static int Main(string[] args)
         {
-            logger.Debug("Начинаю поиск файлов");
+            LoggerManager.Logger.Debug("Начинаю поиск файлов");
             string[] filePaths = MyFile.GetFiles();
-            logger.Debug("Поиск файлов завершён");
+            LoggerManager.Logger.Debug("Поиск файлов завершён");
             if (filePaths == null)
             {
-                logger.Debug("Файлы не найдены");
+                LoggerManager.Logger.Debug("Файлы не найдены");
                 return 0;
             }
             
             foreach (string filePath in filePaths)
             {
-                logger.Information("Обработка началась");
+                LoggerManager.Logger.Information("Обработка началась");
 
-                DocXML docXML = new DocXML(filePath);
+                var docXML = new DocXML(filePath);
 
                 string fileName = Path.GetFileName(filePath); // имя файла
 
@@ -41,7 +41,7 @@ namespace InvoiceConverter
                 }
                 catch (Exception err)
                 {
-                    logger.Error(err, "Error in {filename}", fileName);
+                    LoggerManager.Logger.Error(err, "Error in {filename}", fileName);
                     
                     MyFile.MoveFileError(fileName);
 
@@ -56,7 +56,7 @@ namespace InvoiceConverter
 
                 ConvFile file = null;
 
-                logger.Debug("Покупатель " + docXML.Customer);
+                LoggerManager.Logger.Debug("Покупатель " + docXML.Customer);
 
                 switch (docXML.Customer)
                 {
@@ -112,18 +112,18 @@ namespace InvoiceConverter
 
                 if (move)
                 {
-                    logger.Debug("Готов к перемещению файла {filename}", fileName);
+                    LoggerManager.Logger.Debug("Готов к перемещению файла {filename}", fileName);
                     myFile.MoveFile(Settings.folderXML, fileName);
-                    logger.Debug("Файл перемещён");
+                    LoggerManager.Logger.Debug("Файл перемещён");
                 }
             }
 
             if (filePaths.Count() > 0)
             {
-                logger.Information("Обработка завершилась");
+                LoggerManager.Logger.Information("Обработка завершилась");
             }
 
-            logger.Debug("Программа корректно завершила работу");
+            LoggerManager.Logger.Debug("Программа корректно завершила работу");
             return 1;
         }
     }
