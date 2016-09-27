@@ -1,0 +1,45 @@
+﻿<Window x:Class="InvoiceConverter.WpfApp.CustomerForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CustomerForm" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
+    <Grid x:Name="stackPanel1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="chbEnable" Content="Рассылка включена" IsChecked="{Binding Path=Enable}" />
+        
+        <Label Grid.Column="0" Grid.Row="1" Content="Номер" />
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbNumber" Text="{Binding Path=Number}" />
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Название" />
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbName" Text="{Binding Path=Name}" />
+
+        <Label Grid.Column="0" Grid.Row="3" Content="Тема письма" />
+        <TextBox Grid.Column="1" Grid.Row="3" x:Name="tbSubject" Text="{Binding Path=Subject}" />
+
+        <Label Grid.Column="0" Grid.Row="4" Content="Получатели" />
+        <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbRecipient" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Recipient}" />
+
+        <Label Grid.Column="0" Grid.Row="5" Content="Текст письма" />
+        <TextBox Grid.Column="1" Grid.Row="5" x:Name="tbBody" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Body}" />
+
+        <Label Grid.Column="0" Grid.Row="6" Content="Контакт-персона" />
+        <TextBox Grid.Column="1" Grid.Row="6" x:Name="tbContacts" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Contacts}" />
+
+        <Button Grid.Column="0" Grid.Row="7" x:Name="updateButton" Content="Обновить" Width="100" Click="updateButton_Click" />
+        <Button Grid.Column="1" Grid.Row="7" x:Name="closeButton" Content="Закрыть" Width="100" Click="closeButton_Click" />
+    
+    </Grid>
+</Window>

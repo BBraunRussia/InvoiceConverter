@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="0ae8dcec-fd01-40d6-9f92-7842d6e111ff" ChangeDateTime="09/26/2016 09:44:35">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="75ed5dbf-4223-4170-9670-a4ab3cbec2b7" ChangeDateTime="09/26/2016 09:44:38">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_number]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="number" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a4bcd3df-b798-4456-888a-50a5771db05d" ChangeDateTime="09/26/2016 09:44:44">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bfeb8d13-ad90-4bee-ad7f-f7b546e72017" ChangeDateTime="09/26/2016 09:44:48">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_mailSubject]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="mailSubject" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a7c9ad3a-76f5-48ff-9f88-03920f7b5b50" ChangeDateTime="09/26/2016 09:44:53">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_mailRecipient]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="mailRecipient" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8c66fc9d-7012-420c-9d98-6f2102cd6a05" ChangeDateTime="09/26/2016 09:44:57">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_mailBody]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="mailBody" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d5fe541-e3fb-4622-85f7-868fa812b009" ChangeDateTime="09/26/2016 09:45:01">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_contacts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="contacts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="51e3202d-7dd9-432b-b106-df9d0816a2a1" ChangeDateTime="09/26/2016 09:45:09">
+    <Property Name="ElementName" Value="[dbo].[Customers].[customer_enable]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Enable" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6706ba3a-2c3e-49e8-8b95-297cb176bd76" ChangeDateTime="09/26/2016 09:45:12">
+    <Property Name="ElementName" Value="[dbo].[Customers].[contacts]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Contacts" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9eb67f90-534e-4b88-a872-ed053711846c" ChangeDateTime="09/26/2016 09:45:16">
+    <Property Name="ElementName" Value="[dbo].[Customers].[mailBody]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MailBody" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3e4e63b3-81af-49eb-b3ed-d380de3fc111" ChangeDateTime="09/26/2016 09:45:19">
+    <Property Name="ElementName" Value="[dbo].[Customers].[mailRecipient]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MailRecipient" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d212f8ac-e51a-49ec-b6c0-200376de7db2" ChangeDateTime="09/26/2016 09:45:22">
+    <Property Name="ElementName" Value="[dbo].[Customers].[mailSubject]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MailSubject" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="023d6f02-8471-488b-b94f-10b017f1ea82" ChangeDateTime="09/26/2016 09:45:25">
+    <Property Name="ElementName" Value="[dbo].[Customers].[name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="43f764ae-dcd5-4cd4-a71d-e2cf53a514c7" ChangeDateTime="09/26/2016 09:45:28">
+    <Property Name="ElementName" Value="[dbo].[Customers].[number]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Number" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ade2f468-da9c-480f-a224-e4acc98d8c20" ChangeDateTime="09/26/2016 09:45:30">
+    <Property Name="ElementName" Value="[dbo].[Customers].[id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1c4f5217-c7a8-48a1-8d51-79f3508f0085" ChangeDateTime="09/26/2016 11:17:55">
+    <Property Name="ElementName" Value="[dbo].[Customers].[MailSubject]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Subject" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f2f5e62d-e879-4d44-8e94-3679fb3187c3" ChangeDateTime="09/26/2016 11:17:58">
+    <Property Name="ElementName" Value="[dbo].[Customers].[MailRecipient]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Recipient" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7e7b8081-b94f-42ae-8c8b-1f3816aba4d7" ChangeDateTime="09/26/2016 11:18:02">
+    <Property Name="ElementName" Value="[dbo].[Customers].[MailBody]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Body" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6c6ed241-3706-4865-89fe-83bc5ff16c57" ChangeDateTime="09/26/2016 12:06:28">
+    <Property Name="ElementName" Value="[dbo].[Customers].[Enable]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Enable1" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d55c2c83-dee8-4fd9-9f99-8f4ac236660d" ChangeDateTime="09/26/2016 12:06:53">
+    <Property Name="ElementName" Value="[dbo].[Customers].[Enable1]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Customers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Enable" />
+  </Operation>
+</Operations>
