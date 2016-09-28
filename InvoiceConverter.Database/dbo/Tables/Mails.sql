@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Mails]
+(
+	[Id] INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	[Customer_id] INT NOT NULL,
+	[Date] DATETIME NOT NULL,
+	[FileName] VARCHAR(500) NOT NULL
+)

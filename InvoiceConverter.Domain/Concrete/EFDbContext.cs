@@ -11,5 +11,7 @@ namespace InvoiceConverter.Domain.Concrete
     public class EFDbContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Mail> Mails { get; set; }
     }
 }

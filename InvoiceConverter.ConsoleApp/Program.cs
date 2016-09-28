@@ -11,6 +11,9 @@ using InvoiceConverter.Domain.Logger;
 using InvoiceConverter.Domain.Common;
 using InvoiceConverter.Domain.Abstract;
 using InvoiceConverter.Domain.Companies;
+using InvoiceConverter.Domain.Concrete;
+using InvoiceConverter.Domain.Entities;
+using InvoiceConverter.Domain.Mails;
 
 namespace InvoiceConverter
 {
@@ -19,7 +22,16 @@ namespace InvoiceConverter
         static int Main(string[] args)
         {
             LoggerManager.Logger.Debug("Начинаю поиск файлов");
-            string[] filePaths = MyFile.GetFiles();
+            string[] filePaths = null;
+            try
+            {
+                filePaths = MyFile.GetFiles(Settings.folderNew, "*.xml");
+            }
+            catch (NullReferenceException err)
+            {
+                LoggerManager.Logger.Error(err, "Ошибка при установке настроек");
+                return -1;
+            }
             LoggerManager.Logger.Debug("Поиск файлов завершён");
             if (filePaths == null)
             {
@@ -123,8 +135,39 @@ namespace InvoiceConverter
                 LoggerManager.Logger.Information("Обработка завершилась");
             }
 
+            SendMails();
+            
             LoggerManager.Logger.Debug("Программа корректно завершила работу");
             return 1;
+        }
+
+        private static void SendMails()
+        {
+            string[] dirPaths = MyFile.GetDirectories(Settings.folderConv);
+
+            ICustomerRepository customerRepository = new EFCustomerRepository();
+            
+            LoggerManager.Logger.Debug("Начинаю рассылку");
+            foreach (string dirPath in dirPaths)
+            {
+                Customer customer = customerRepository.Customers.FirstOrDefault(item => item.Number == dirPath);
+                if (customer == null)
+                {
+                    LoggerManager.Logger.Error("Не найден покупатель по номеру {number}", dirPath);
+                    continue;
+                }
+
+                string[] filePaths = MyFile.GetFiles(Settings.folderConv + @"\" + dirPath);
+
+                MailToCustomer mailToCustomer = new MailToCustomer(customer);
+
+                foreach (string filePath in filePaths)
+                {
+                    mailToCustomer.SendMail(filePath);
+                }
+            }
+
+            LoggerManager.Logger.Debug("Рассылка завершилась");
         }
     }
 }

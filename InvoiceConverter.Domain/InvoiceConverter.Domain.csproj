@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Abstract\ConvFile.cs" />
     <Compile Include="Abstract\ICustomerRepository.cs" />
+    <Compile Include="Abstract\IMailRepository.cs" />
+    <Compile Include="Abstract\ISettingRepository.cs" />
     <Compile Include="Common\DocXML.cs" />
     <Compile Include="Common\enums.cs" />
     <Compile Include="Common\ExcelWriter.cs" />
@@ -66,7 +68,12 @@
     <Compile Include="Common\MyFile.cs" />
     <Compile Include="Concrete\EFCustomerRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EFMailRepository.cs" />
+    <Compile Include="Concrete\EFSettingRepository.cs" />
     <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\Mail.cs" />
+    <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Mails\MailToCustomer.cs" />
     <Compile Include="Mails\Sender.cs" />
     <Compile Include="Common\Settings.cs" />
     <Compile Include="Companies\AnteyFarma.cs" />

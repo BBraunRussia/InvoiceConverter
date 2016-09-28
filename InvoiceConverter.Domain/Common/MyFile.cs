@@ -79,16 +79,26 @@ namespace InvoiceConverter.Domain.Common
                 File.Delete(newFilePath);
         }
 
-        public static string[] GetFiles()
+        public static string[] GetFiles(string folder, string filter = "*.*")
         {
             try
             {
-                string[] files = Directory.GetFiles(Settings.folderNew, "*.xml", SearchOption.TopDirectoryOnly);
-                if (files.Count() == 0)
-                    return null;
-                return files;
+                return Directory.GetFiles(folder, filter, SearchOption.TopDirectoryOnly);
             }
-            catch (Exception err)
+            catch (UnauthorizedAccessException err)
+            {
+                LoggerManager.Logger.Error(err, "Ошибка {folder}", Settings.folderNew);
+                return null;
+            }
+        }
+
+        public static string[] GetDirectories(string folder)
+        {
+            try
+            {
+                return Directory.GetDirectories(folder);
+            }
+            catch (UnauthorizedAccessException err)
             {
                 LoggerManager.Logger.Error(err, "Ошибка {folder}", Settings.folderNew);
                 return null;

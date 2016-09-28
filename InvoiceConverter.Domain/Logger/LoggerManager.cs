@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Serilog;
 using InvoiceConverter.Domain.Mails;
+using InvoiceConverter.Domain.Common;
 
 namespace InvoiceConverter.Domain.Logger
 {
@@ -26,7 +27,7 @@ namespace InvoiceConverter.Domain.Logger
         public static void ErrorCreated(string fileName, string error)
         {
             Write(string.Concat("Ошибка при обработке файла ", fileName, " - ", error));
-            Sender.SendMail(error);
+            Sender.SendMail(Settings.adminEmail, "Ошибка при обработке файла", "Ошибка при обработке файла, описание ошибки в лог файле");
         }
 
         public static void FolderCreated(string folder)
