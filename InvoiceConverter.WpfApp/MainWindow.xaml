@@ -20,8 +20,8 @@
         <DataGrid AutoGenerateColumns="False" x:Name="customersGrid" IsReadOnly="True" MouseDoubleClick="customersGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding Enable}" Header="Рассылка включена" Width="auto"/>
-                <DataGridTextColumn Binding="{Binding Number}" Header="Номер" Width="auto"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Наименование" Width="auto"/>
+                <DataGridTextColumn Binding="{Binding Number}" Header="Номер" Width="auto"/>
                 <DataGridTextColumn Binding="{Binding Subject}" Header="Тема письма" Width="auto"/>
                 <DataGridTextColumn Binding="{Binding Recipient}" Header="Получатели" Width="auto"/>
             </DataGrid.Columns>

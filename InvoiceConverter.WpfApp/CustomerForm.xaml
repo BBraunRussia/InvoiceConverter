@@ -19,13 +19,13 @@
         </Grid.RowDefinitions>
         
         <CheckBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="chbEnable" Content="Рассылка включена" IsChecked="{Binding Path=Enable}" />
+
+        <Label Grid.Column="0" Grid.Row="1" Content="Название" />
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbName" Text="{Binding Path=Name}" />
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Номер" />
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbNumber" Text="{Binding Path=Number}" />
         
-        <Label Grid.Column="0" Grid.Row="1" Content="Номер" />
-        <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbNumber" Text="{Binding Path=Number}" />
-
-        <Label Grid.Column="0" Grid.Row="2" Content="Название" />
-        <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbName" Text="{Binding Path=Name}" />
-
         <Label Grid.Column="0" Grid.Row="3" Content="Тема письма" />
         <TextBox Grid.Column="1" Grid.Row="3" x:Name="tbSubject" Text="{Binding Path=Subject}" />
 
