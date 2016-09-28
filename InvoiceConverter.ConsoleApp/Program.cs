@@ -21,23 +21,7 @@ namespace InvoiceConverter
     {
         static int Main(string[] args)
         {
-            LoggerManager.Logger.Debug("Начинаю поиск файлов");
-            string[] filePaths = null;
-            try
-            {
-                filePaths = MyFile.GetFiles(Settings.folderNew, "*.xml");
-            }
-            catch (NullReferenceException err)
-            {
-                LoggerManager.Logger.Error(err, "Ошибка при установке настроек");
-                return -1;
-            }
-            LoggerManager.Logger.Debug("Поиск файлов завершён");
-            if (filePaths == null)
-            {
-                LoggerManager.Logger.Debug("Файлы не найдены");
-                return 0;
-            }
+            string[] filePaths = GetFiles();
             
             foreach (string filePath in filePaths)
             {
@@ -130,7 +114,7 @@ namespace InvoiceConverter
                 }
             }
 
-            if (filePaths.Count() > 0)
+            if (filePaths.Any())
             {
                 LoggerManager.Logger.Information("Обработка завершилась");
             }
@@ -139,6 +123,27 @@ namespace InvoiceConverter
             
             LoggerManager.Logger.Debug("Программа корректно завершила работу");
             return 1;
+        }
+
+        private static string[] GetFiles()
+        {
+            LoggerManager.Logger.Debug("Начинаю поиск файлов");
+            string[] filePaths = null;
+            try
+            {
+                filePaths = MyFile.GetFiles(Settings.folderNew, "*.xml");
+            }
+            catch (NullReferenceException err)
+            {
+                LoggerManager.Logger.Error(err, "Ошибка при установке настроек");
+            }
+            LoggerManager.Logger.Debug("Поиск файлов завершён");
+            if (filePaths == null)
+            {
+                LoggerManager.Logger.Debug("Файлы не найдены");
+            }
+
+            return filePaths;
         }
 
         private static void SendMails()
@@ -150,14 +155,15 @@ namespace InvoiceConverter
             LoggerManager.Logger.Debug("Начинаю рассылку");
             foreach (string dirPath in dirPaths)
             {
-                Customer customer = customerRepository.Customers.FirstOrDefault(item => item.Number == dirPath);
+                string dirName = Path.GetDirectoryName(dirPath);
+                Customer customer = customerRepository.Customers.FirstOrDefault(item => item.Number == dirName);
                 if (customer == null)
                 {
                     LoggerManager.Logger.Error("Не найден покупатель по номеру {number}", dirPath);
                     continue;
                 }
 
-                string[] filePaths = MyFile.GetFiles(Settings.folderConv + @"\" + dirPath);
+                string[] filePaths = MyFile.GetFiles(dirPath);
 
                 MailToCustomer mailToCustomer = new MailToCustomer(customer);
 
