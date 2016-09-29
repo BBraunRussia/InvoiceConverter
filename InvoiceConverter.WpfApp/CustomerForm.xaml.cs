@@ -1,5 +1,5 @@
 ﻿using InvoiceConverter.Domain.Abstract;
-using InvoiceConverter.Domain.Concrete;
+using InvoiceConverter.Domain.Infractructure;
 using InvoiceConverter.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace InvoiceConverter.WpfApp
 
         private void updateButton_Click(object sender, RoutedEventArgs e)
         {
-            ICustomerRepository repository = new EFCustomerRepository();
+            ICustomerRepository repository = CompositionRoot.Resolve<ICustomerRepository>();
             repository.SaveCustomer(customer);
             this.Close();
         }

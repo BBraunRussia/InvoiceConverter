@@ -1,5 +1,5 @@
 ﻿using InvoiceConverter.Domain.Abstract;
-using InvoiceConverter.Domain.Concrete;
+using InvoiceConverter.Domain.Infractructure;
 using System.Windows;
 using System.Data.Entity;
 using InvoiceConverter.Domain.Entities;
@@ -22,7 +22,7 @@ namespace InvoiceConverter.WpfApp
         {
             InitializeComponent();
 
-            repository = new EFCustomerRepository();
+            repository = CompositionRoot.Resolve<ICustomerRepository>();
 
             Load();
         }

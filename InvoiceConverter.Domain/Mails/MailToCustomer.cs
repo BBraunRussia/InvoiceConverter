@@ -1,5 +1,5 @@
 ﻿using InvoiceConverter.Domain.Abstract;
-using InvoiceConverter.Domain.Concrete;
+using InvoiceConverter.Domain.Infractructure;
 using InvoiceConverter.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace InvoiceConverter.Domain.Mails
 
         public MailToCustomer(Customer customer)
         {
-            mailRepository = new EFMailRepository();
+            mailRepository = CompositionRoot.Resolve<IMailRepository>();
 
             this.customer = customer;
         }
@@ -24,6 +24,7 @@ namespace InvoiceConverter.Domain.Mails
         public void SendMail(string filePath)
         {
             Sender.SendMail(customer.Recipient, customer.Subject, customer.Body, filePath);
+            SaveMail(filePath);
         }
 
         private void SaveMail(string filePath)

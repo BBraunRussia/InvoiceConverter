@@ -26,18 +26,18 @@ namespace InvoiceConverter.Domain.Companies
 
         public override void CreateAndSaveFile()
         {
-            _newFileName = "H" + _docXML.Invoice;
-            MyDBF myDBF = new MyDBF(_newFileName, _docXML);            
+            string filename = "H" + _docXML.Invoice;
+            MyDBF myDBF = new MyDBF(filename, _docXML);            
             DataTable dt = createTableHeader();
-            string createSqlTable = string.Concat("create table ", _newFileName, " ([DocNumber] char(15), ", "[RegDate] Date, ", "[Inn] char(22), ",
+            string createSqlTable = string.Concat("create table ", filename, " ([DocNumber] char(15), ", "[RegDate] Date, ", "[Inn] char(22), ",
                 "[Contr] int, ", "[Consig] int, ", "[Order] int, ", "[Remark] char(100))");
             myDBF.DataTableIntoDBF(dt, createSqlTable);
-            
 
-            _newFileName = "B" + _docXML.Invoice;
-            myDBF = new MyDBF(_newFileName, _docXML);
+
+            filename = "B" + _docXML.Invoice;
+            myDBF = new MyDBF(filename, _docXML);
             dt = createTableBody();
-            createSqlTable = string.Concat("create table ", _newFileName, " ([DocNumber] char(15), ", "[GoodsID] char(20), ", "[GoodsN] char(100), ",
+            createSqlTable = string.Concat("create table ", filename, " ([DocNumber] char(15), ", "[GoodsID] char(20), ", "[GoodsN] char(100), ",
                 "[CountryID] numeric(10, 0), ", "[CountryN] char(100), ", "[FirmID] numeric(10,0), ", "[FirmN] char(100), ", "[Quantity] numeric(15,3), ",
                 "[PriceReg] numeric(15,2), ", "[PriceF] numeric(15,2), ", "[Margin] numeric(10,2), ", "[MarginSum] numeric(10,2), ", "[PriceWN] numeric(15,2), ",
                 "[StrSumWN] numeric(15,2), ", "[Price] numeric(15,2), ", "[StrSum] numeric(15,2), ", "[NDS] numeric(10,2), ", "[NDSSum] numeric(15,2), ",

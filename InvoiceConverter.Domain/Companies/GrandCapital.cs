@@ -14,7 +14,6 @@ namespace InvoiceConverter.Domain.Companies
 {
     public class GrandCapital : ConvFile
     {
-        private const string COMPANY_NAME = "GrandCapital";
         private const string INN = "7729418511";
         private const string OUR_COMPANY_CODE = "001127";
         private const string OUR_COMPANY_NAME = "ООО \"Б.Браун Медикал\"";
@@ -25,13 +24,15 @@ namespace InvoiceConverter.Domain.Companies
 
         protected override void CreateFileName()
         {
-            _newFileName = string.Concat("invoice_", INN, "_", _docXML.Invoice, ".xml");
-            CreateNewPath();
+            string fileName = string.Concat("invoice_", INN, "_", _docXML.Invoice, ".xml");
+
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
-            MyXML myXML = new MyXML(_newFilePath, "Document");
+            MyXML myXML = new MyXML(newFilePath, "Document");
 
             myXML.CreateXMLNode("DocNumber", _docXML.Torg12);
             myXML.CreateXMLNode("DocDate", _docXML.Torg12Date);
@@ -59,7 +60,7 @@ namespace InvoiceConverter.Domain.Companies
             }
             myXML.Save();
 
-            LoggerManager.Logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
+            LoggerManager.Logger.Information(_docXML.Customer.Name + " Файл {filePath} был конвертирован в файл {newfilename}", filePath, newFilePath);
         }
     }
 }

@@ -16,22 +16,15 @@ namespace InvoiceConverter.Domain.Common
             _custNumberSAP = custNumberSAP;
         }
 
-        public void MoveFile(string xmlFolder, string fileName)
+        public void MoveFile(string filePath, string xmlFolderTo)
         {
-            string newFilePath = CreateFilePathWithCustNumber(xmlFolder, fileName);
-            Move(fileName, newFilePath);
+            string fileName = Path.GetFileName(filePath);
+            string newFilePath = GetFilePathWithCustNumber(xmlFolderTo, fileName);
+            Move(filePath, newFilePath);
         }
-
-        public static void MoveFileError(string fileName)
+        
+        private static void Move(string filePath, string newFilePath)
         {
-            string newFilePath = CreateFilePath(Settings.folderXMLError, fileName);
-            Move(fileName, newFilePath);
-        }
-
-        private static void Move(string fileName, string newFilePath)
-        {
-            string filePath = CreateFilePath(Settings.folderNew, fileName);
-
             try
             {
                 CreateFolder(newFilePath);
@@ -44,18 +37,16 @@ namespace InvoiceConverter.Domain.Common
             }
         }
 
-        public void Copy(string fileName, string newFileName)
+        public void Copy(string filePath, string xmlFolderTo, string newFileName)
         {
-            newFileName = newFileName + ".xml";
-            string filePath = CreateFilePath(Settings.folderNew, fileName);
-            string newFilePath = CreateFilePathWithCustNumber(Settings.folderConv, newFileName);
+            string newFilePath = GetFilePathWithCustNumber(xmlFolderTo, newFileName + ".xml");
 
             try
             {
                 DeleteIfExistFile(newFilePath);
 
                 File.Copy(filePath, newFilePath, true);
-                LoggerManager.Logger.Information("Файл {filename} скопирован {newfilename}", fileName, newFilePath);
+                LoggerManager.Logger.Information("Файл {filePath} скопирован {newfilename}", filePath, newFilePath);
             }
             catch(Exception err)
             {
@@ -63,7 +54,7 @@ namespace InvoiceConverter.Domain.Common
             }
         }
 
-        private string CreateFilePathWithCustNumber(string folder, string file)
+        public string GetFilePathWithCustNumber(string folder, string file)
         {
             return CreateFilePath(string.Concat(folder, @"\", _custNumberSAP), file);
         }

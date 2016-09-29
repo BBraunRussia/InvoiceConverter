@@ -16,22 +16,23 @@ namespace InvoiceConverter.Domain.Companies
         private const int INDEX_ROW_BEGIN_HEADER = 0;
         private const int INDEX_COLUMN_BEGIN_HEADER = 0;
         private const int INDEX_BEGIN = 2;
-        private const string COMPANY_NAME = "SeveroZapad";
 
         public SeveroZapad(string sourceFile, DocXML docXML) :
             base(sourceFile, docXML) { }
 
         protected override void CreateFileName()
         {
-            _newFileName = string.Concat(_docXML.Torg12, ".xls");
-            CreateNewPath();
+            string fileName = string.Concat(_docXML.Torg12, ".xls");
+
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
             try
             {
-                using (FileStream stream = new FileStream(_newFilePath, FileMode.OpenOrCreate))
+                using (FileStream stream = new FileStream(newFilePath, FileMode.OpenOrCreate))
                 {
                     int rowIndex = INDEX_BEGIN;
 
@@ -90,13 +91,14 @@ namespace InvoiceConverter.Domain.Companies
                     writer.EndWrite();
                 }
 
-                LoggerManager.Logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
+                LoggerManager.Logger.Information(_docXML.Customer.Name + " Файл {filePath} был конвертирован в файл {newfilename}", filePath, newFilePath);
                 MoveFile(Settings.folderXML);
             }
             catch (Exception err)
             {
-                LoggerManager.Logger.Error(err, COMPANY_NAME + " Ошибка при обработке файла {filename}", _newFilePath);
-                MyFile.MoveFileError(_fileName);
+                LoggerManager.Logger.Error(err, _docXML.Customer.Name + " Ошибка при обработке файла {filename}", newFilePath);
+                MyFile myFile = new MyFile(_docXML.Customer.Number);
+                myFile.MoveFile(filePath, Settings.folderXMLError);
             }
         }
 

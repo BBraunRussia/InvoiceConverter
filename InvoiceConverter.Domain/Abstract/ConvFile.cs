@@ -12,15 +12,14 @@ namespace InvoiceConverter.Domain.Abstract
         protected static Encoding ANSI = Encoding.GetEncoding(1251);
 
         protected DocXML _docXML;
-        protected string _newFilePath;
-        protected string _fileName;
-        protected string _newFileName;
+        protected string newFilePath;
+        protected string filePath;
 
         public abstract void CreateAndSaveFile();
-        
-        public ConvFile(string fileName, DocXML docXML)
+
+        public ConvFile(string filePath, DocXML docXML)
         {
-            _fileName = fileName;
+            this.filePath = filePath;
             _docXML = docXML;
 
             CreateFileName();
@@ -30,13 +29,14 @@ namespace InvoiceConverter.Domain.Abstract
 
         protected void MoveFile(string destFolder)
         {
-            MyFile myFile = new MyFile(_docXML.CustNumberSAP);
-            myFile.MoveFile(destFolder, _fileName);
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            myFile.MoveFile(destFolder, filePath);
         }
-
+        /*
         protected void CreateNewPath()
         {
             _newFilePath = string.Concat(Settings.folderConv, @"\", _docXML.CustNumberSAP, @"\", _newFileName);
         }
+        */
     }
 }

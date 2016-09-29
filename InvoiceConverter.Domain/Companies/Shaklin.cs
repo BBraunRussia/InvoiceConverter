@@ -13,29 +13,29 @@ namespace InvoiceConverter.Domain.Companies
 {
     public class Shaklin : ConvFile
     {
-        const string COMPANY_NAME = "Shaklin";
-
         public Shaklin(string sourceFile, DocXML docXML) : 
             base(sourceFile, docXML) { }
 
         protected override void CreateFileName()
         {
-            _docXML.CustNumber = "41273";
+            _docXML.Customer.Number = "41273";
 
             while (_docXML.Invoice[0] == '0')
                 _docXML.Invoice = _docXML.Invoice.Remove(0, 1);
 
-            _newFileName = string.Concat(_docXML.CustNumber, "_", _docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
-            CreateNewPath();
+            string fileName = string.Concat(_docXML.Customer.Number, "_", _docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
+
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(_newFilePath, false, ANSI))
+                using (StreamWriter sw = new StreamWriter(newFilePath, false, ANSI))
                 {
-                    sw.WriteLine(string.Concat(_docXML.CustNumber, "\t", _docXML.Curcy, "\t", _docXML.Invoice, "\t", _docXML.Summe));
+                    sw.WriteLine(string.Concat(_docXML.Customer.Number, "\t", _docXML.Curcy, "\t", _docXML.Invoice, "\t", _docXML.Summe));
 
                     for (int k = 0; k < _docXML.idTnrProductCode.Count; k++)
                     {
@@ -45,14 +45,14 @@ namespace InvoiceConverter.Domain.Companies
                             _docXML.vfDat.GetItem(k), "\t", _docXML.name1.GetItem(k), "\t", _docXML.countInPackage.GetItem(k), "\t", _docXML.menee.GetItem(k)));
                     }
 
-                    LoggerManager.Logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
+                    LoggerManager.Logger.Information(_docXML.Customer.Name + " Файл {filePath} был конвертирован в файл {newfilename}", filePath, newFilePath);
                     MoveFile(Settings.folderXML);
                 }
             }
             catch (Exception err)
             {
-                LoggerManager.Logger.Error(err, COMPANY_NAME + " Ошибка при обработке файла {filename}", _newFilePath);
-                File.Delete(_newFilePath);
+                LoggerManager.Logger.Error(err, _docXML.Customer.Name + " Ошибка при обработке файла {filename}", newFilePath);
+                File.Delete(newFilePath);
                 MoveFile(Settings.folderXMLError);
             }
         }

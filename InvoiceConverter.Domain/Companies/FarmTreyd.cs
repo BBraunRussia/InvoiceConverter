@@ -4,6 +4,7 @@ using InvoiceConverter.Domain.Formats;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -18,14 +19,17 @@ namespace InvoiceConverter.Domain.Companies
 
         protected override void CreateFileName()
         {
-            _newFileName = _docXML.Invoice;
+            string fileName = _docXML.Invoice;
+            
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
-            MyDBF myDBF = new MyDBF(_newFileName, _docXML);
+            MyDBF myDBF = new MyDBF(newFilePath, _docXML);
             DataTable dt = createTable();
-            string createSqlTable = string.Concat("CREATE TABLE ", _newFileName, " ([NDOC] char(20), ", "[DATEDOC] Date, ", "[CODEPST] char(12), ",
+            string createSqlTable = string.Concat("CREATE TABLE ", Path.GetFileName(newFilePath), " ([NDOC] char(20), ", "[DATEDOC] Date, ", "[CODEPST] char(12), ",
                 "[EAN13] char(13), ", "[PRICE1] numeric(9,2), ", "[PRICE2] numeric(9,2), ", "[PRICE2N] numeric(9,2), ", "[QNT] numeric(9,2), ",
                 "[SER] char(20), ", "[GDATE] Date, ", "[DATEMADE] Date, ", "[NAME] char(80), ", "[CNTR] char(15), ",
                 "[FIRM] char(40), ", "[QNTPACK] numeric(8,0), ", "[NDS] numeric(9,2), ", "[NSP] numeric(9, 2), ", "[GNVLS] numeric(1,0), ",

@@ -11,9 +11,9 @@ using InvoiceConverter.Domain.Logger;
 using InvoiceConverter.Domain.Common;
 using InvoiceConverter.Domain.Abstract;
 using InvoiceConverter.Domain.Companies;
-using InvoiceConverter.Domain.Concrete;
 using InvoiceConverter.Domain.Entities;
 using InvoiceConverter.Domain.Mails;
+using InvoiceConverter.Domain.Infractructure;
 
 namespace InvoiceConverter
 {
@@ -27,77 +27,66 @@ namespace InvoiceConverter
             {
                 LoggerManager.Logger.Information("Обработка началась");
 
-                var docXML = new DocXML(filePath);
-
-                string fileName = Path.GetFileName(filePath); // имя файла
-
+                DocXML docXML = null;
                 try
                 {
-                    docXML.fillFields();
+                    docXML = new DocXML(filePath);
                 }
-                catch (Exception err)
+                catch (NullReferenceException ex)
                 {
-                    LoggerManager.Logger.Error(err, "Error in {filename}", fileName);
-                    
-                    MyFile.MoveFileError(fileName);
-
+                    LoggerManager.Logger.Error(ex, "Проверьте присутствие покупателя в БД");
                     continue;
                 }
-
-                MyFile myFile = new MyFile(docXML.CustNumberSAP);
                 
+                MyFile myFile = new MyFile(docXML.Customer.Number);
                 bool move = true;
 
                 string newFileName = string.Concat(docXML.Invoice, "_", docXML.InvoiceDate);
 
                 ConvFile file = null;
 
-                LoggerManager.Logger.Debug("Покупатель " + docXML.Customer);
+                LoggerManager.Logger.Debug("Покупатель " + docXML.Customer.Name);
 
-                switch (docXML.Customer)
+                switch (docXML.Customer.Number)
                 {
-                    case Cust.AnteyFarma:
-                        file = new AnteyFarma(fileName, docXML);
+                    case "0020440063": //Антей
+                        file = new AnteyFarma(filePath, docXML);
                         move = false;
                         break;
-                    case Cust.AptekaSkladChel:
-                        file = new AptekaSkladChel(fileName, docXML);
+                    case "0020564803": //Аптечный Склад Челябинск
+                        file = new AptekaSkladChel(filePath, docXML);
                         break;
-                    case Cust.GrandCapital:
-                        file = new GrandCapital(fileName, docXML);
+                    case "0020439554": //ФК Гранд Капитал ООО
+                        file = new GrandCapital(filePath, docXML);
                         break;
-                    case Cust.FarmTreid:
-                        file = new FarmTreyd(fileName, docXML);
+                    case "0020439922": //Фарм-Трейд ООО
+                        file = new FarmTreyd(filePath, docXML);
                         break;
-                    case Cust.Protek:
+                    case "0020438427": //Протек
                         newFileName = string.Concat(docXML.Invoice);
-                        myFile.Copy(fileName, newFileName);
+                        myFile.Copy(filePath, Settings.folderConv, newFileName);
                         break;
-                    case Cust.SeveroZapad:
-                        file = new SeveroZapad(fileName, docXML);
+                    case "0020439679": //ЗАО Северо-Запад
+                        file = new SeveroZapad(filePath, docXML);
                         move = false;
                         break;
-                    case Cust.Shaklin:
-                        file = new Shaklin(fileName, docXML);
+                    case "0020439066": //Шаклин
+                        file = new Shaklin(filePath, docXML);
                         move = false;
                         break;
-                    case Cust.Voltars:
-                        file = new Voltars(fileName, docXML);
+                    case "0020438640": //Волтарс
+                        file = new Voltars(filePath, docXML);
                         move = false;
                         break;
-                    case Cust.UralApteka:
-                        file = new UralApteka(fileName, docXML);
+                    case "0020441355": //АптекаУрал
+                        file = new UralApteka(filePath, docXML);
                         move = false;
                         break;
-                    case Cust.Katren:
+                    case "0020439804": //Катрен
                         file = new Katren(filePath, docXML);
                         break;
-                    case Cust.GBUZ:
-                    case Cust.Optimed:
-                    case Cust.Optimed2:
-                    case Cust.EuropeanMedicalCenter:
                     default:
-                        myFile.Copy(fileName, newFileName);
+                        myFile.Copy(filePath, Settings.folderConv, newFileName);
                         break;
                 }
 
@@ -108,9 +97,8 @@ namespace InvoiceConverter
 
                 if (move)
                 {
-                    LoggerManager.Logger.Debug("Готов к перемещению файла {filename}", fileName);
-                    myFile.MoveFile(Settings.folderXML, fileName);
-                    LoggerManager.Logger.Debug("Файл перемещён");
+                    myFile.MoveFile(filePath, Settings.folderXML);
+                    LoggerManager.Logger.Debug("Файл {filePath} перемещён в папку {filePath2}", filePath, Settings.folderXML);
                 }
             }
 
@@ -127,7 +115,6 @@ namespace InvoiceConverter
 
         private static string[] GetFiles()
         {
-            LoggerManager.Logger.Debug("Начинаю поиск файлов");
             string[] filePaths = null;
             try
             {
@@ -137,8 +124,8 @@ namespace InvoiceConverter
             {
                 LoggerManager.Logger.Error(err, "Ошибка при установке настроек");
             }
-            LoggerManager.Logger.Debug("Поиск файлов завершён");
-            if (filePaths == null)
+
+            if (!filePaths.Any())
             {
                 LoggerManager.Logger.Debug("Файлы не найдены");
             }
@@ -150,16 +137,15 @@ namespace InvoiceConverter
         {
             string[] dirPaths = MyFile.GetDirectories(Settings.folderConv);
 
-            ICustomerRepository customerRepository = new EFCustomerRepository();
+            ICustomerRepository customerRepository = CompositionRoot.Resolve<ICustomerRepository>();
             
-            LoggerManager.Logger.Debug("Начинаю рассылку");
+            LoggerManager.Logger.Debug("Начинаю поиск файлов для отправки");
             foreach (string dirPath in dirPaths)
             {
-                string dirName = Path.GetDirectoryName(dirPath);
-                Customer customer = customerRepository.Customers.FirstOrDefault(item => item.Number == dirName);
+                string dirName = Path.GetFileName(dirPath);
+                Customer customer = customerRepository.Customers.FirstOrDefault(cust => ((cust.Number == dirName) && (cust.Enable)) );
                 if (customer == null)
                 {
-                    LoggerManager.Logger.Error("Не найден покупатель по номеру {number}", dirPath);
                     continue;
                 }
 
@@ -170,6 +156,12 @@ namespace InvoiceConverter
                 foreach (string filePath in filePaths)
                 {
                     mailToCustomer.SendMail(filePath);
+                    LoggerManager.Logger.Information("Письмо с файлом {filePath} отправлено", filePath);
+                                        
+                    MyFile myFile = new MyFile(customer.Number);
+                    myFile.MoveFile(filePath, Settings.folderSent);
+
+                    LoggerManager.Logger.Debug("Файл {filePath} перемещён в папку {folder}", filePath, Settings.folderSent);
                 }
             }
 

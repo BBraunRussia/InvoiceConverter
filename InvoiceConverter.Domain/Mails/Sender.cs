@@ -25,7 +25,8 @@ namespace InvoiceConverter.Domain.Mails
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(fromAddress);
 
-            string[] emails = GetEmails(stringEmails);
+            //string[] emails = GetEmails(stringEmails);
+            string[] emails = new string[] { "pavel.maslyaev@bbraun.com" };
             foreach (string email in emails)
             {
                 msg.To.Add(new MailAddress(email));

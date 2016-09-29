@@ -6,6 +6,9 @@ using System.Data;
 using System.Xml;
 using System.IO;
 using InvoiceConverter.Domain.Lists;
+using InvoiceConverter.Domain.Infractructure;
+using InvoiceConverter.Domain.Abstract;
+using InvoiceConverter.Domain.Entities;
 
 namespace InvoiceConverter.Domain.Common
 {
@@ -71,16 +74,15 @@ namespace InvoiceConverter.Domain.Common
         private string _torg12Date;
 
         public string Invoice { get; set; }
-        public string CustNumber { get; set; }
-
+        
         public string InvoiceDate
         {
             get { return MyDate.GetDate(_dateInvoice); }
             set { _dateInvoice = value; }
         }
 
-        public string CustNumberSAP { get; private set; }
-        public Cust Customer { get; private set; }
+        public Customer Customer { get; private set; }
+
         public string Curcy { get; private set; }
         
         public string Torg12 { get; private set; }
@@ -126,9 +128,11 @@ namespace InvoiceConverter.Domain.Common
             hsDat = new ItemListDate();
             
             zhnvls = "0";
+
+            fillFields();
         }
 
-        public void fillFields()
+        private void fillFields()
         {
             DataSet ds = new DataSet();
 
@@ -321,20 +325,12 @@ namespace InvoiceConverter.Domain.Common
         
         public void SetCustNumberSAP(string value)
         {
-            CustNumberSAP = value;
+            ICustomerRepository customerRepository = CompositionRoot.Resolve<ICustomerRepository>();
 
-            if (Settings.Customers.ContainsKey(value))
-            {
-                Customer = Settings.Customers[value];
-            }
-            
-            CreateFolder();
-        }
+            Customer = customerRepository.Customers.FirstOrDefault(cust => cust.Number == value);
 
-        private void CreateFolder()
-        {
-            string filePath = string.Concat(Settings.folderConv, @"\", CustNumberSAP, @"\file.xml");
-            MyFile.CreateFolder(filePath);
+            if (Customer == null)
+                throw new NullReferenceException("Покупатель с номером " + value + " не найден в БД");
         }
     }
 }

@@ -12,28 +12,28 @@ using InvoiceConverter.Domain.Logger;
 namespace InvoiceConverter.Domain.Companies
 {
     public class UralApteka : ConvFile
-    {
-        private const string COMPANY_NAME = "UralApteka";
-        
+    {        
         public UralApteka(string sourceFile, DocXML docXML)
             : base(sourceFile, docXML) { }
 
         protected override void CreateFileName()
         {
-            _newFileName = string.Concat(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
-            CreateNewPath();
+            string fileName = string.Concat(_docXML.Invoice, "_", _docXML.InvoiceDate, ".xml");
+
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
-            XmlTextWriter textWritter = new XmlTextWriter(_newFilePath, ANSI);
+            XmlTextWriter textWritter = new XmlTextWriter(newFilePath, ANSI);
             textWritter.WriteStartDocument();
             textWritter.WriteStartElement("Документ");
             textWritter.WriteEndElement();
             textWritter.Close();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(_newFilePath);
+            doc.Load(newFilePath);
 
             XmlNode node = doc.CreateElement("ЗаголовокДокумента");
             doc.DocumentElement.AppendChild(node);
@@ -219,9 +219,9 @@ namespace InvoiceConverter.Domain.Companies
                 XmlNode node68 = doc.CreateElement("Код3");
                 node53.AppendChild(node68);
             }
-            doc.Save(_newFilePath);
+            doc.Save(newFilePath);
 
-            LoggerManager.Logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
+            LoggerManager.Logger.Information(_docXML.Customer.Name + " Файл {filePath} был конвертирован в файл {newfilename}", filePath, newFilePath);
             MoveFile(Settings.folderXML);
         }
     }

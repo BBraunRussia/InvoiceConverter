@@ -12,23 +12,23 @@ using System.Text;
 namespace InvoiceConverter.Domain.Companies
 {
     public class AnteyFarma : ConvFile
-    {
-        const string COMPANY_NAME = "AnteyFarma";
-        
+    {        
         public AnteyFarma(string sourceFile, DocXML docXML) :
             base(sourceFile, docXML) { }
 
         protected override void CreateFileName()
         {
-            _newFileName = string.Concat(_docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
-            CreateNewPath();
+            string fileName = string.Concat(_docXML.Invoice, "_", _docXML.InvoiceDate, ".txt");
+
+            MyFile myFile = new MyFile(_docXML.Customer.Number);
+            newFilePath = myFile.GetFilePathWithCustNumber(Settings.folderConv, fileName);
         }
 
         public override void CreateAndSaveFile()
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(_newFilePath, false, ANSI))
+                using (StreamWriter sw = new StreamWriter(newFilePath, false, ANSI))
                 {
                     sw.WriteLine(string.Concat("Антей - Фарма\t", _docXML.Invoice, "\t", _docXML.InvoiceDate));
 
@@ -43,14 +43,14 @@ namespace InvoiceConverter.Domain.Companies
                         sw.WriteLine(str);
                     }
 
-                    LoggerManager.Logger.Information(COMPANY_NAME + " Файл {filename} был конвертирован в файл {newfilename}", _fileName, _newFilePath);
+                    LoggerManager.Logger.Information(_docXML.Customer.Name + " Файл {filePath} был конвертирован в файл {newfilename}", filePath, newFilePath);
                     MoveFile(Settings.folderXML);
                 }
             }
             catch (Exception err)
             {
-                LoggerManager.Logger.Error(err, COMPANY_NAME + " Ошибка при обработке файла {filename}", _newFilePath);
-                File.Delete(_newFilePath);
+                LoggerManager.Logger.Error(err, _docXML.Customer.Name + " Ошибка при обработке файла {filename}", newFilePath);
+                File.Delete(newFilePath);
                 MoveFile(Settings.folderXMLError);
             }
         }

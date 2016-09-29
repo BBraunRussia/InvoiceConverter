@@ -1,5 +1,5 @@
 ﻿using InvoiceConverter.Domain.Abstract;
-using InvoiceConverter.Domain.Concrete;
+using InvoiceConverter.Domain.Infractructure;
 using InvoiceConverter.Domain.Mails;
 using System;
 using System.Collections.Generic;
@@ -15,26 +15,28 @@ namespace InvoiceConverter.Domain.Common
         public static readonly string folderXML;// = @"P:\SAP\EDI\DEA\EDI_XML";
         public static readonly string folderConv;// = @"P:\SAP\EDI\DEA\EDI_CONVERTED";
         public static readonly string folderXMLError;
+        public static readonly string folderSent;
         public static readonly string xmlSchema;// = @"J:\Information Technology\Development\XMLtoTXT\INVOIC02_XMLSchema.xsd";
         public static readonly string adminEmail;
-        public static readonly Dictionary<string, Cust> Customers;
+        //public static readonly Dictionary<string, Cust> Customers;
 
         static Settings()
         {
-            Customers = new Dictionary<string, Cust>();
+            //Customers = new Dictionary<string, Cust>();
 
-            ISettingRepository repository = new EFSettingRepository();
+            ISettingRepository repository = CompositionRoot.Resolve<ISettingRepository>();
 
             folderNew = repository.Settings.FirstOrDefault(s => s.ID == "folderNew").Value;
             folderXML = repository.Settings.FirstOrDefault(s => s.ID == "folderXML").Value;
             folderConv = repository.Settings.FirstOrDefault(s => s.ID == "folderConv").Value;
             folderXMLError = repository.Settings.FirstOrDefault(s => s.ID == "folderXMLError").Value;
+            folderSent = repository.Settings.FirstOrDefault(s => s.ID == "folderSent").Value;
             xmlSchema = repository.Settings.FirstOrDefault(s => s.ID == "xmlSchema").Value;
             adminEmail = repository.Settings.FirstOrDefault(s => s.ID == "email").Value;
 
-            ReadCustomers();
+            //ReadCustomers();
         }
-
+        /*
         private static void ReadCustomers()
         {
             ICustomerRepository repository = new EFCustomerRepository();
@@ -44,5 +46,6 @@ namespace InvoiceConverter.Domain.Common
                 Customers.Add(item.Name, (Cust)item.ID);
             }
         }
+        */
     }
 }

@@ -23,8 +23,8 @@ namespace InvoiceConverter.Domain.Formats
 
         public void DataTableIntoDBF(DataTable dt, string createSqlTable)
         {
-            string path = string.Concat(Settings.folderConv, @"\", docXML.CustNumberSAP, @"\", fileName, ".DBF");
-            string pathWithoutFile = string.Concat(Settings.folderConv, @"\", docXML.CustNumberSAP);
+            string path = string.Concat(Settings.folderConv, @"\", docXML.Customer.Number, @"\", fileName, ".DBF");
+            string pathWithoutFile = string.Concat(Settings.folderConv, @"\", docXML.Customer.Number);
 
             if (File.Exists(path))
                 File.Delete(path);

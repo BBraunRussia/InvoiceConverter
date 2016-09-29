@@ -38,6 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -61,7 +65,6 @@
     <Compile Include="Abstract\IMailRepository.cs" />
     <Compile Include="Abstract\ISettingRepository.cs" />
     <Compile Include="Common\DocXML.cs" />
-    <Compile Include="Common\enums.cs" />
     <Compile Include="Common\ExcelWriter.cs" />
     <Compile Include="Common\MyDate.cs" />
     <Compile Include="Common\MyExtensions.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Mail.cs" />
     <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Infractructure\CompositionRoot.cs" />
     <Compile Include="Mails\MailToCustomer.cs" />
     <Compile Include="Mails\Sender.cs" />
     <Compile Include="Common\Settings.cs" />
