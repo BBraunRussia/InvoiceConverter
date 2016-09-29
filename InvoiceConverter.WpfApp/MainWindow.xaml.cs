@@ -63,5 +63,11 @@ namespace InvoiceConverter.WpfApp
             CustomerForm custForm = new CustomerForm(customer);
             custForm.ShowDialog();
         }
+
+        private void openMails_Click(object sender, RoutedEventArgs e)
+        {
+            MailsForm mailsForm = new MailsForm();
+            mailsForm.ShowDialog();
+        }
     }
 }

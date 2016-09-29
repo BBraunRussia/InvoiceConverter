@@ -77,7 +77,9 @@
     <Compile Include="Entities\Mail.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Infractructure\CompositionRoot.cs" />
+    <Compile Include="Mails\MailsToShow.cs" />
     <Compile Include="Mails\MailToCustomer.cs" />
+    <Compile Include="Mails\MailToShow.cs" />
     <Compile Include="Mails\Sender.cs" />
     <Compile Include="Common\Settings.cs" />
     <Compile Include="Companies\AnteyFarma.cs" />

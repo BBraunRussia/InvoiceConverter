@@ -27,7 +27,7 @@ namespace InvoiceConverter.Domain.Concrete
                 {
                     dbEntry.Customer_id = mail.Customer_id;
                     dbEntry.Date = mail.Date;
-                    dbEntry.FileName = mail.FileName;
+                    dbEntry.FilePath = mail.FilePath;
                 }
             }
 

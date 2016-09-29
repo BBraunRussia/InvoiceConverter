@@ -11,6 +11,6 @@ namespace InvoiceConverter.Domain.Entities
         public int ID { get; set; }
         public int Customer_id { get; set; }
         public DateTime Date { get; set; }
-        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }

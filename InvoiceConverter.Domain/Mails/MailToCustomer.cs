@@ -31,8 +31,8 @@ namespace InvoiceConverter.Domain.Mails
         {
             Mail mail = new Mail();
             mail.Customer_id = customer.ID;
-            mail.Date = DateTime.Today;
-            mail.FileName = filePath;
+            mail.Date = DateTime.Now;
+            mail.FilePath = filePath;
 
             mailRepository.SaveMail(mail);
         }

@@ -29,6 +29,7 @@
         
         <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
             <Button x:Name="addNew" Content="Добавить покупателя" Width="auto" Click="addNew_Click" />
+            <Button x:Name="openMails" Content="Открыть журнал" Width="auto" Click="openMails_Click" />
         </StackPanel>
     </Grid>
 </Window>
