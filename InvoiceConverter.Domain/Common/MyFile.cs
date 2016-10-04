@@ -16,11 +16,12 @@ namespace InvoiceConverter.Domain.Common
             _custNumberSAP = custNumberSAP;
         }
 
-        public void MoveFile(string filePath, string xmlFolderTo)
+        public string MoveFile(string filePath, string xmlFolderTo)
         {
             string fileName = Path.GetFileName(filePath);
             string newFilePath = GetFilePathWithCustNumber(xmlFolderTo, fileName);
             Move(filePath, newFilePath);
+            return newFilePath;
         }
         
         private static void Move(string filePath, string newFilePath)

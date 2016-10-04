@@ -17,8 +17,14 @@
         <DataGrid AutoGenerateColumns="False" x:Name="mailsGrid" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Покупатель" Width="auto"/>
-                <DataGridTextColumn Binding="{Binding Date}" Header="Дата отправки" Width="auto"/>                
-                <DataGridHyperlinkColumn Binding="{Binding FilePath}" Header="Файл" Width="auto" />
+                <DataGridTextColumn Binding="{Binding Date}" Header="Дата отправки" Width="auto"/>
+                <DataGridHyperlinkColumn Binding="{Binding FilePath}" Header="Файл" Width="auto">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style>
+                            <EventSetter Event="Hyperlink.Click" Handler="mailsGrid_Hyperlink_Click"/>
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

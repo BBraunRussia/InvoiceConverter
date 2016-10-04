@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using InvoiceConverter.Domain.Abstract;
 using InvoiceConverter.Domain.Infractructure;
+using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace InvoiceConverter.WpfApp
 {
@@ -26,6 +28,12 @@ namespace InvoiceConverter.WpfApp
             //IMailRepository repository = CompositionRoot.Resolve<IMailRepository>();
 
             mailsGrid.ItemsSource = repository.Mails.ToList();
+        }
+
+        private void mailsGrid_Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = (Hyperlink)e.OriginalSource;
+            Process.Start(link.NavigateUri.AbsoluteUri);
         }
     }
 }

@@ -20,14 +20,13 @@ namespace InvoiceConverter.Domain.Mails
 
             this.customer = customer;
         }
-
+        
         public void SendMail(string filePath)
         {
             Sender.SendMail(customer.Recipient, customer.Subject, customer.Body, filePath);
-            SaveMail(filePath);
         }
-
-        private void SaveMail(string filePath)
+        
+        public void SaveMail(string filePath)
         {
             Mail mail = new Mail();
             mail.Customer_id = customer.ID;

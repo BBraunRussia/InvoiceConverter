@@ -159,7 +159,9 @@ namespace InvoiceConverter
                     LoggerManager.Logger.Information("Письмо с файлом {filePath} отправлено", filePath);
                                         
                     MyFile myFile = new MyFile(customer.Number);
-                    myFile.MoveFile(filePath, Settings.folderSent);
+                    string newFilePath = myFile.MoveFile(filePath, Settings.folderSent);
+
+                    mailToCustomer.SaveMail(newFilePath);
 
                     LoggerManager.Logger.Debug("Файл {filePath} перемещён в папку {folder}", filePath, Settings.folderSent);
                 }
